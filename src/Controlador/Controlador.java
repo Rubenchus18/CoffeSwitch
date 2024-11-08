@@ -977,39 +977,29 @@ public class Controlador implements ActionListener{
 		    }
 		    actualizarModeloDeLista(mesa);
 	}
-	public Double pagar(Mesa mesa,DefaultListModel<String> modelo, JList<String> list) {
-	   
+	public Double pagar(Mesa mesa, DefaultListModel<String> modelo, JList<String> list) {
 	    double total = 0.0;
-	    HashMap<String, Integer> comanda = null;
-	    if (modelo == modeloMesa1) {
-	        comanda = mesa1.getComanda();
-	    } else if (modelo == modeloMesa2) {
-	        comanda = mesa2.getComanda();
-	    } else if (modelo == modeloMesa3) {
-	        comanda = mesa3.getComanda();
-	    } else if (modelo == modeloMesa4) {
-	        comanda = mesa4.getComanda();
-	    } else if (modelo == modeloMesa5) {
-	        comanda = mesa5.getComanda();
-	    } else if (modelo == modeloMesa6) {
-	        comanda = mesa6.getComanda();
-	    }
+	    HashMap<String, Integer> comanda = mesa.getComanda();
 
-	        for (Map.Entry<String, Integer> entry : comanda.entrySet()) {
-	            String producto = entry.getKey();
-	            Integer cantidad = entry.getValue();
-	            for (Producto prod : productostotales) {
-	                if (prod.getNombre().equals(producto)) {
-	                    total = prod.getPrecio() * cantidad; 
-	                    mesa.eliminarProducto(prod.getNombre(), cantidad);
-	                }
+	    for (Map.Entry<String, Integer> entry : comanda.entrySet()) {
+	        String producto = entry.getKey();
+	        Integer cantidad = entry.getValue();
+
+	        for (Producto prod : productostotales) {
+	            if (prod.getNombre().equals(producto)) {
+	                double precioProducto = prod.getPrecio();
+	                total = precioProducto * cantidad;
+	                mesa.eliminarProducto(prod.getNombre(), cantidad); 
+	      
 	            }
 	        }
-	     
-	    modelo.clear(); 
+	    }
+
+	    modelo.clear();
 	    list.setModel(modelo); 
-	    actualizarModeloDeLista(mesa);
-	    return total; 
+	    actualizarModeloDeLista(mesa); 
+
+	    return total; // Devolver el total
 	}
 	public void añadirinventario() {
 		String productoSeleccionado = (String) this.vista.comboBoxNombreProducto.getSelectedItem();
