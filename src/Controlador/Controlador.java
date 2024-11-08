@@ -767,7 +767,7 @@ public class Controlador implements ActionListener{
 						this.vista.lblFalloPanelUsuario.setText("Este usuario ya existe");
 					}else if(totalempleados.get(i).getContraseña().equals(this.vista.textFieldInicioSesion.getText())) {
 						this.vista.lblFalloPanelUsuario.setText("Esta contraseña ya existe");						
-					}else if(this.vista.textFieldInicioSesion.getText().isEmpty() && this.vista.textFieldContraseña.getText().isEmpty()){
+					}else if(this.vista.textFieldInicioSesion.getText()==null && this.vista.textFieldContraseña.getText()==null){
 						this.vista.lblFalloPanelUsuario.setText("Campos vacios");
 					}else {
 						agregarNuevoUsuario(this.vista.textFieldPanelNombreUsuario.getText(),this.vista.textFieldPanelContraseña.getText());
@@ -966,8 +966,39 @@ public class Controlador implements ActionListener{
 		            prod.setCantidad(prod.getCantidad() + 1); 
 		            this.vista.lblnohaycomida.setText("");
 		            this.vista.lblnohaybebida.setText("");
-
-		         
+		            if(prod.getNombre().equalsIgnoreCase("Tostadas")) {
+    	            	this.vista.btnañadirtostada.setEnabled(true);
+    	            }else if(prod.getNombre().equalsIgnoreCase("Avena")) {
+    	            	this.vista.btnañadirvolavena.setEnabled(true);
+    	            }else if(prod.getNombre().equalsIgnoreCase("Cookie")) {
+    	            	this.vista.btnañadircooki.setEnabled(true);
+    	            }else if(prod.getNombre().equalsIgnoreCase("Tortitas")) {
+    	            	this.vista.btnañadirtortitas.setEnabled(true);
+    	            }else if(prod.getNombre().equalsIgnoreCase("Tostadas de Jamon")) {
+    	            	this.vista.btnañadirtostadadejamon.setEnabled(true);
+    	            }else if(prod.getNombre().equalsIgnoreCase("Croassan")) {
+    	            	this.vista.btnañadircroassan.setEnabled(true);
+    	            }else if(prod.getNombre().equalsIgnoreCase("Palmera")) {
+    	            	this.vista.btnañadirpalmera.setEnabled(true);
+    	            }else if(prod.getNombre().equalsIgnoreCase("Churros")) {
+    	            	this.vista.btnañadirchurros.setEnabled(true);
+    	            }else if(prod.getNombre().equalsIgnoreCase("Cafe")) {
+    	            	this.vista.btnañadircafesolo.setEnabled(true);
+    	            }else if(prod.getNombre().equalsIgnoreCase("Cortado")) {
+    	            	this.vista.btnañadircortado.setEnabled(true);
+    	            }else if(prod.getNombre().equalsIgnoreCase("Caramel")) {
+    	            	this.vista.btnañadircaramel.setEnabled(true);
+    	            }else if(prod.getNombre().equalsIgnoreCase("Frapuchino")) {
+    	            	this.vista.btnañadirfrapuchino.setEnabled(true);
+    	            }else if(prod.getNombre().equalsIgnoreCase("Cola Cao")) {
+    	            	this.vista.btnañadircolacao.setEnabled(true);
+    	            }else if(prod.getNombre().equalsIgnoreCase("Cafe con leche")) {
+    	            	this.vista.btnaladircafeconleche.setEnabled(true);
+    	            }else if(prod.getNombre().equalsIgnoreCase("Cafe Largo")) {
+    	            	this.vista.btnañadircafelargo.setEnabled(true);
+    	            }else if(prod.getNombre().equalsIgnoreCase("Zumo")) {
+    	            	this.vista.btnañadirzumo.setEnabled(true);
+    	            }	         
 		            if (prod.getCantidad() <= 0) {
 		                modelo.removeElement(prod.getNombre());
 		            }
