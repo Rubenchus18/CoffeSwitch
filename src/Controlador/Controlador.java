@@ -116,9 +116,7 @@ public class Controlador implements ActionListener{
 		hora(this.vista.lblHora1);
 		hora(this.vista.lblHora_1);
 		totalempleados = rellenar(empleados);
-		productostotales=rellenarproducto(inventario, productostotales);
-		int cantidad=0;
-		Double precio=0.0;
+		productostotales=rellenarproducto(inventario, productostotales);	
 		List<Producto>productos=new ArrayList<Producto>();
 		ArrayList<String>mesas=new ArrayList<String>();
 		HashMap<String,Integer>contador=new HashMap<String,Integer>();
@@ -172,30 +170,26 @@ public class Controlador implements ActionListener{
 	    }
 		
 		
-		if(e.getSource()==this.vista.btnIniciarSesion) {
-			
-			for(int i=0;i<totalempleados.size();i++) {
-				if( totalempleados.get(i).getNombre().equals(this.vista.textFieldInicioSesion.getText())&& totalempleados.get(i).getContraseña().equals(this.vista.textFieldContraseña.getText())) {
-					this.vista.panelnicio.setVisible(false);
-					this.vista.panelMesa.setVisible(true);
-					this.vista.textFieldInicioSesion.setText("");
-					this.vista.textFieldContraseña.setText("");
-				}else if(totalempleados.get(i).getNombre()!=this.vista.textFieldInicioSesion.getText() && totalempleados.get(i).getContraseña()!=this.vista.textFieldContraseña.getText()){
-					this.vista.lblFallo.setText("El nombre de usuario y la contraseña es incorrecta");
-					this.vista.textFieldInicioSesion.setText("");
-					this.vista.textFieldContraseña.setText("");
-				}else if( totalempleados.get(i).getNombre()!=this.vista.textFieldInicioSesion.getText()) {
-					this.vista.lblFallo.setText("El nombre de usuario es incorrecto");
-					this.vista.textFieldInicioSesion.setText("");
-					this.vista.textFieldContraseña.setText("");
-				}else if( totalempleados.get(i).getContraseña()!=this.vista.textFieldContraseña.getText()) {
-					this.vista.lblFallo.setText("La contraseña es incorrecta es incorrecto");
-					this.vista.textFieldInicioSesion.setText("");
-					this.vista.textFieldContraseña.setText("");
-				}
-				
-			}
-			}
+		if (e.getSource() == this.vista.btnIniciarSesion) {
+		    String nombreUsuario = this.vista.textFieldInicioSesion.getText();
+		    String contraseña = this.vista.textFieldContraseña.getText();
+		    if (nombreUsuario.isEmpty() || contraseña.isEmpty()) {
+		        this.vista.lblFallo.setText("Los campos no pueden estar vacíos");
+		        
+		    }
+		 for (Personal empleado : totalempleados) {
+		        if (empleado.getNombre().equalsIgnoreCase(nombreUsuario) && empleado.getContraseña().equals(contraseña)) {
+		        	 this.vista.panelnicio.setVisible(false);
+				        this.vista.panelMesa.setVisible(true);
+				        this.vista.textFieldInicioSesion.setText("");
+				        this.vista.textFieldContraseña.setText("");
+		        }else {
+		        	this.vista.lblFallo.setText("El nombre de usuario o la contraseña son incorrectos");
+			        this.vista.textFieldInicioSesion.setText("");
+			        this.vista.textFieldContraseña.setText("");
+		        }
+		    }
+		}
 		if (e.getSource() == this.vista.btnañadirtostada) {
 			if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
 	            agregarProducto(mesa1, "Tostadas",1.50,vista.btnañadirtostada);
@@ -755,22 +749,19 @@ public class Controlador implements ActionListener{
 		    }
 		    if(e.getSource()==this.vista.btnUsuario) {
 		    	for(int i=0;i<totalempleados.size();i++) {
-					if( totalempleados.get(i).getNombre().equals(this.vista.textFieldInicioSesion.getText())&& totalempleados.get(i).getContraseña().equals(this.vista.textFieldContraseña.getText())) {
-						this.vista.lblFalloPanelUsuario.setText("Este usuario y contraseña ya existen");
-					}else if(totalempleados.get(i).getNombre().equals(this.vista.textFieldInicioSesion.getText())) {
-						this.vista.lblFalloPanelUsuario.setText("Este usuario ya existe");
-					}else if(totalempleados.get(i).getContraseña().equals(this.vista.textFieldInicioSesion.getText())) {
-						this.vista.lblFalloPanelUsuario.setText("Esta contraseña ya existe");						
-					}else if(this.vista.textFieldInicioSesion.getText()==null && this.vista.textFieldContraseña.getText()==null){
-						this.vista.lblFalloPanelUsuario.setText("Campos vacios");
-					}else {
-						agregarNuevoUsuario(this.vista.textFieldPanelNombreUsuario.getText(),this.vista.textFieldPanelContraseña.getText());
-						this.vista.panelCrearUsuario.setVisible(false);
-						this.vista.panelnicio.setVisible(true);
-						 this.vista.textFieldPanelNombreUsuario.setText("");
-						 this.vista.textFieldPanelContraseña.setText("");
-					}	
+					if( totalempleados.get(i).getNombre().equals(this.vista.textFieldPanelNombreUsuario.getText())&& totalempleados.get(i).getContraseña().equals(this.vista.textFieldPanelContraseña.getText())) {
+						this.vista.lblFalloPanelUsuario.setText("Este usuario y contraseña ya existen");					
+					}
 				}
+		    	if(this.vista.textFieldPanelNombreUsuario.getText().isEmpty() || this.vista.textFieldPanelContraseña.getText().isEmpty()){
+					this.vista.lblFalloPanelUsuario.setText("Campos vacios");
+				}else {
+					agregarNuevoUsuario(this.vista.textFieldPanelNombreUsuario.getText(),this.vista.textFieldPanelContraseña.getText());
+					this.vista.panelCrearUsuario.setVisible(false);
+					this.vista.panelnicio.setVisible(true);
+					 this.vista.textFieldPanelNombreUsuario.setText("");
+					 this.vista.textFieldPanelContraseña.setText("");
+				}	
 		    }
 		    if(e.getSource()==this.vista.btnVolver) {
 		    	this.vista.panelnicio.setVisible(true);
@@ -793,9 +784,9 @@ public class Controlador implements ActionListener{
 		    }
 		    
 		
-	}
 	
 	
+}
 
 	
 
@@ -1004,31 +995,21 @@ public class Controlador implements ActionListener{
 	    double precio=0.0;
 	    
 	    HashMap<String, Integer> comanda = mesa.getComanda();
-
-	    
 	    for (Map.Entry<String, Integer> entry : comanda.entrySet()) {
 	        String producto = entry.getKey();
 	        Integer cantidad = entry.getValue();
-
-	        
 	        for (Producto prod : productostotales) {
 	            if (prod.getNombre().equals(producto)) {
 	                double precioProducto = prod.getPrecio();
 	                precio = precioProducto * cantidad;
 	                total=total+precio;
 	                mesa.eliminarProducto(prod.getNombre(), cantidad); 
-	            
 	            }
 	        }
 	    }
-
-	
 	    modelo.clear();
 	    list.setModel(modelo); 
-
-	
 	    actualizarModeloDeLista(mesa); 
-
 	    return total; 
 	}
 	
@@ -1129,5 +1110,4 @@ public class Controlador implements ActionListener{
  	   
  	    this.vista.textFieldCantidad.setText("");
 	}
-	
 }
