@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Timer;
 
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
@@ -31,10 +32,10 @@ import Modelo.Personal;
 import Modelo.Producto;
 import Vista.InicioSesion;
 
-public class Controlador implements ActionListener,MouseListener{
+public class Controlador implements ActionListener{
 	InicioSesion vista=new InicioSesion();
 	Personal empleados;
-	Producto inventario;
+	Producto inventario; 
 	ArrayList<ImageIcon>imagenes=new ArrayList();
 	List<Personal>totalempleados=new ArrayList<>();	
 	List<Producto>productostotales=new ArrayList<>();
@@ -46,9 +47,6 @@ public class Controlador implements ActionListener,MouseListener{
 	    Mesa mesa4 = new Mesa("Mesa 4");
 	   Mesa  mesa5 = new Mesa("Mesa 5");
 	   Mesa  mesa6 = new Mesa("Mesa 6");
-	   
-
-
 	public Controlador(InicioSesion vista) {
 		this.vista=vista;
 		this.vista.btnIniciarSesion.addActionListener(this);
@@ -58,12 +56,6 @@ public class Controlador implements ActionListener,MouseListener{
 		this.vista.btnMesa4.addActionListener(this);
 		this.vista.btnMesa5.addActionListener(this);
 		this.vista.btnMesa6.addActionListener(this);
-		this.vista.btnMesa1.addMouseListener(this);;
-		this.vista.btnMesa2.addMouseListener(this);
-		this.vista.btnMesa3.addMouseListener(this);
-		this.vista.btnMesa4.addMouseListener(this);
-		this.vista.btnMesa5.addMouseListener(this);
-		this.vista.btnMesa6.addMouseListener(this);
 		this.vista.btnAtras.addActionListener(this);
 		this.vista.btnVueltasMesa.addActionListener(this);
 		this.vista.btnVolverMesaBebida.addActionListener(this);
@@ -85,7 +77,7 @@ public class Controlador implements ActionListener,MouseListener{
 		this.vista.btnañadircroassan.addActionListener(this);
 		this.vista.btnañadirpalmera.addActionListener(this);
 		this.vista.btnañadirchurros.addActionListener(this);
-		this.vista.btnNuevoEmpleado_1.addActionListener(this);
+		this.vista.btnCrearEmpleado.addActionListener(this);
 		this.vista.btnPagarComida.addActionListener(this);
 		this.vista.btnPagarBebidas.addActionListener(this);
 		this.vista.btneliminartostada.addActionListener(this);
@@ -112,9 +104,8 @@ public class Controlador implements ActionListener,MouseListener{
 		this.vista.comboBoxNombreProducto.addActionListener(this);
 		this.vista.btnVolverMesaBebida.addActionListener(this);
 		ponerImagen();
-		hora(this.vista.lblHora);
-		hora(this.vista.lblHora1);
-		
+		hora(vista.lblHora);
+		hora(vista.lblHora1);
 		totalempleados = rellenar(empleados);
 		productostotales=rellenarproducto(inventario, productostotales);	
 		List<Producto>productos=new ArrayList<Producto>();
@@ -168,288 +159,135 @@ public class Controlador implements ActionListener,MouseListener{
 	        this.vista.lblCantidadDineroComida.setText("");
 	        actualizarModeloDeLista(mesa6);
 	    }
-		
-		
+
 		if (e.getSource() == this.vista.btnIniciarSesion) {
-			   this.vista.lblFalloInicioSesion.setText("");
-		    String nombreUsuario = this.vista.textFieldInicioSesion.getText();
-		    String contraseña = this.vista.textFieldContraseña.getText();
-		    this.vista.textFieldInicioSesion.setText("");
-	        this.vista.textFieldContraseña.setText("");
-		    if (nombreUsuario.isEmpty() || contraseña.isEmpty()) {
-		        this.vista.lblFalloInicioSesion.setText("Los campos no pueden estar vacíos");
-		    }
-		 for (Personal empleado : totalempleados) {
-			 if(!empleado.getNombre().equalsIgnoreCase(nombreUsuario)) {
-		        	this.vista.lblFalloInicioSesion.setText("El nombre de usuario es incorrecto");
-			        this.vista.textFieldInicioSesion.setText("");
-			        this.vista.textFieldContraseña.setText("");
-		        }  
-			 if(!empleado.getContraseña().equalsIgnoreCase(nombreUsuario)) {
-		        	this.vista.lblFalloInicioSesion.setText("La contraseña es incorrecto");
-			        this.vista.textFieldInicioSesion.setText("");
-			        this.vista.textFieldContraseña.setText("");
-		        } 
-			 if (empleado.getNombre().equalsIgnoreCase(nombreUsuario) && empleado.getContraseña().equals(contraseña)) {
-		        	 this.vista.panelnicio.setVisible(false);
-				        this.vista.panelMesa.setVisible(true);
-				        this.vista.textFieldInicioSesion.setText("");
-				        this.vista.textFieldContraseña.setText("");
-		        }
-			 if(!empleado.getNombre().equalsIgnoreCase(nombreUsuario) && !empleado.getContraseña().equals(contraseña)){
-		        	this.vista.lblFalloInicioSesion.setText("El nombre de usuario o la contraseña son incorrectos");
-			        this.vista.textFieldInicioSesion.setText("");
-			        this.vista.textFieldContraseña.setText("");
-		        }
-			 if(!empleado.getContraseña().equalsIgnoreCase(nombreUsuario)) {
-		        	this.vista.lblFalloInicioSesion.setText("La contraseña es incorrecto");
-			        this.vista.textFieldInicioSesion.setText("");
-			        this.vista.textFieldContraseña.setText("");
-		        }
-		      
-		        
-		    }
+			  String nombreUsuario = this.vista.textFieldInicioSesion.getText();
+			    String contraseña = this.vista.textFieldContraseña.getText();
+			    this.vista.textFieldInicioSesion.setText("");
+			    this.vista.textFieldContraseña.setText("");
+
+			    if (nombreUsuario.isEmpty() || contraseña.isEmpty()) {
+			        this.vista.lblFalloInicioSesion.setText("Los campos no pueden estar vacíos");
+			        return; 
+			    }
+			    if (nombreUsuario.isEmpty() && contraseña.isEmpty()) {
+			        this.vista.lblFalloInicioSesion.setText("Los campos estan vacíos");
+			        return; 
+			    }
+			    boolean usuarioEncontrado = false; 
+			    for (Personal empleado : totalempleados) { 
+			        if (empleado.getNombre().equalsIgnoreCase(nombreUsuario)) {
+			            usuarioEncontrado = true;
+			            if (empleado.getContraseña().equals(contraseña)) {
+			                this.vista.panelnicio.setVisible(false);
+			                this.vista.panelMesa.setVisible(true);
+			                this.vista.textFieldInicioSesion.setText("");
+						    this.vista.textFieldContraseña.setText("");
+			                return;
+			            } else {
+			                this.vista.lblFalloInicioSesion.setText("La contraseña es incorrecta");
+			                return; 
+			            }
+			        }
+			    }
+			    if (!usuarioEncontrado) {
+			        this.vista.lblFalloInicioSesion.setText("El nombre de usuario es incorrecto");
+			    }
 		}
+		if (e.getSource() == this.vista.btnCrearEmpleado) {
+			 String nombreUsuario = this.vista.textFieldInicioSesion.getText();
+			    String contraseña = this.vista.textFieldContraseña.getText();
+			    this.vista.textFieldInicioSesion.setText("");
+			    this.vista.textFieldContraseña.setText("");
+			    if (nombreUsuario.isEmpty() || contraseña.isEmpty()) {
+			        this.vista.lblFalloInicioSesion.setText("Los campos no pueden estar vacíos");
+			        return; 
+			    }
+			    if(nombreUsuario.isEmpty() && contraseña.isEmpty()) {
+			    	this.vista.lblFalloInicioSesion.setText("Los campos entan vacíos");
+			        return; 
+			    }
+			    boolean usuarioExistente = false; 
+			    for (Personal empleado : totalempleados) {
+			        if (empleado.getNombre().equalsIgnoreCase(nombreUsuario)) {
+			            usuarioExistente = true;  
+			        }
+			    }
+			    if (usuarioExistente) {
+			        this.vista.lblFalloInicioSesion.setText("Este usuario ya existe");
+			    } else {
+			        agregarNuevoUsuario(nombreUsuario, contraseña);
+			        this.vista.lblFalloInicioSesion.setText("Nuevo usuario creado");
+			    }
+		}
+		
 		if (e.getSource() == this.vista.btnañadirtostada) {
-			if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
-	            agregarProducto(mesa1, "Tostadas",1.50,vista.btnañadirtostada);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
-	            agregarProducto(mesa2, "Tostadas",1.50,vista.btnañadirtostada);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
-	            agregarProducto(mesa3, "Tostadas", 1.50,vista.btnañadirtostada);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
-	            agregarProducto(mesa4, "Tostadas",1.50,vista.btnañadirtostada);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
-	            agregarProducto(mesa5, "Tostadas",1.50,vista.btnañadirtostada);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
-	            agregarProducto(mesa6, "Tostadas",1.50,vista.btnañadirtostada);
-	        }
-	    }
-		if (e.getSource() == this.vista.btnañadirvolavena) {
-			if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
-	            agregarProducto(mesa1, "Avena",2.50,vista.btnañadirvolavena);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
-	            agregarProducto(mesa2, "Avena",2.50,vista.btnañadirvolavena);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
-	            agregarProducto(mesa3, "Avena", 2.50,vista.btnañadirvolavena);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
-	            agregarProducto(mesa4, "Avena",2.50,vista.btnañadirvolavena);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
-	            agregarProducto(mesa5, "Avena",2.50,vista.btnañadirvolavena);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
-	            agregarProducto(mesa6, "Avena",2.50,vista.btnañadirvolavena);
-	        }
-	    }
-		if (e.getSource() == this.vista.btnañadircooki) {
-			if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
-	            agregarProducto(mesa1, "Cookie",0.50,vista.btnañadircooki);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
-	            agregarProducto(mesa2, "Cookie",0.50,vista.btnañadircooki);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
-	            agregarProducto(mesa3, "Cookie", 0.50,vista.btnañadircooki);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
-	            agregarProducto(mesa4, "Cookie",0.50,vista.btnañadircooki);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
-	            agregarProducto(mesa5, "Cookie",0.50,vista.btnañadircooki);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
-	            agregarProducto(mesa6, "Cookie",0.50,vista.btnañadircooki);
-	        }
-	    }
-		if (e.getSource() == this.vista.btnañadirtortitas) {
-			if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
-	            agregarProducto(mesa1, "Tortitas",2.00,vista.btnañadirtortitas);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
-	            agregarProducto(mesa2, "Tortitas",2.00,vista.btnañadirtortitas);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
-	            agregarProducto(mesa3, "Tortitas", 2.00,vista.btnañadirtortitas);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
-	            agregarProducto(mesa4, "Tortitas",2.00,vista.btnañadirtortitas);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
-	            agregarProducto(mesa5, "Tortitas",2.00,vista.btnañadirtortitas);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
-	            agregarProducto(mesa6, "Tortitas",2.00,vista.btnañadirtortitas);
-	        }
-	    }
-		if (e.getSource() == this.vista.btnañadirtostadadejamon) {
-			if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
-	            agregarProducto(mesa1, "Tostadas de Jamon",2.00,vista.btnañadirtostadadejamon);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
-	            agregarProducto(mesa2, "Tostadas de Jamon",2.00,vista.btnañadirtostadadejamon);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
-	            agregarProducto(mesa3, "Tostadas de Jamon", 2.00,vista.btnañadirtostadadejamon);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
-	            agregarProducto(mesa4, "Tostadas de Jamon",2.00,vista.btnañadirtostadadejamon);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
-	            agregarProducto(mesa5, "Tostadas de Jamon",2.00,vista.btnañadirtostadadejamon);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
-	            agregarProducto(mesa6, "Tostadas de Jamon",2.00,vista.btnañadirtostadadejamon);
-	        }
-	    }
-		if (e.getSource() == this.vista.btnañadircroassan) {
-			if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
-	            agregarProducto(mesa1, "Croassan",1.20,vista.btnañadircroassan);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
-	            agregarProducto(mesa2, "Croassan",1.20,vista.btnañadircroassan);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
-	            agregarProducto(mesa3, "Croassan", 1.20,vista.btnañadircroassan);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
-	            agregarProducto(mesa4, "Croassan",1.20,vista.btnañadircroassan);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
-	            agregarProducto(mesa5, "Croassan",1.20,vista.btnañadircroassan);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
-	            agregarProducto(mesa6, "Croassan",1.20,vista.btnañadircroassan);
-	        }
-	    }
-		if (e.getSource() == this.vista.btnañadirpalmera) {
-			if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
-	            agregarProducto(mesa1, "Palmera",1.00,vista.btnañadirpalmera);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
-	            agregarProducto(mesa2, "Palmera",1.00,vista.btnañadirpalmera);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
-	            agregarProducto(mesa3, "Palmera", 1.00,vista.btnañadirpalmera);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
-	            agregarProducto(mesa4, "Palmera",1.00,vista.btnañadirpalmera);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
-	            agregarProducto(mesa5, "Palmera",1.00,vista.btnañadirpalmera);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
-	            agregarProducto(mesa6, "Palmera",1.00,vista.btnañadirpalmera);
-	        }
-	    }
-		if (e.getSource() == this.vista.btnañadirchurros) {
-			if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
-	            agregarProducto(mesa1, "Churros",0.50,vista.btnañadirchurros);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
-	            agregarProducto(mesa2, "Churros",0.50,vista.btnañadirchurros);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
-	            agregarProducto(mesa3, "Churros",0.50,vista.btnañadirchurros);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
-	            agregarProducto(mesa4, "Churros",0.50,vista.btnañadirchurros);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
-	            agregarProducto(mesa5, "Churros",0.50,vista.btnañadirchurros);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
-	            agregarProducto(mesa6, "Churros",0.50,vista.btnañadirchurros);
-	        }
-	    }
-		if (e.getSource() == this.vista.btnañadircafesolo) {
-			if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
-	            agregarProducto(mesa1, "Cafe",1.20,vista.btnañadircafesolo);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
-	            agregarProducto(mesa2, "Cafe",1.20,vista.btnañadircafesolo);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
-	            agregarProducto(mesa3, "Cafe",1.20,vista.btnañadircafesolo);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
-	            agregarProducto(mesa4, "Cafe",1.20,vista.btnañadircafesolo);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
-	            agregarProducto(mesa5, "Cafe",1.20,vista.btnañadircafesolo);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
-	            agregarProducto(mesa6, "Cafe",1.20,vista.btnañadircafesolo);
-	        }
-	    }
-		if (e.getSource() == this.vista.btnañadircortado) {
-			if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
-	            agregarProducto(mesa1, "Cortado",1.50,vista.btnañadircortado);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
-	            agregarProducto(mesa2, "Cortado",1.50,vista.btnañadircortado);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
-	            agregarProducto(mesa3, "Cortado",1.50,vista.btnañadircortado);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
-	            agregarProducto(mesa4, "Cortado",1.50,vista.btnañadircortado);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
-	            agregarProducto(mesa5, "Cortado",1.50,vista.btnañadircortado);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
-	            agregarProducto(mesa6, "Cortado",1.50,vista.btnañadircortado);
-	        }
-	    }
-		if (e.getSource() == this.vista.btnañadircaramel) {
-			if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
-	            agregarProducto(mesa1, "Caramel",2.50,vista.btnañadircaramel);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
-	            agregarProducto(mesa2, "Caramel",2.50,vista.btnañadircaramel);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
-	            agregarProducto(mesa3, "Caramel",2.50,vista.btnañadircaramel);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
-	            agregarProducto(mesa4, "Caramel",2.50,vista.btnañadircaramel);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
-	            agregarProducto(mesa5, "Caramel",2.50,vista.btnañadircaramel);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
-	            agregarProducto(mesa6, "Caramel",2.50,vista.btnañadircaramel);
-	        }
-	    }
-		if (e.getSource() == this.vista.btnañadirfrapuchino) {
-			if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
-	            agregarProducto(mesa1, "Frapuchino",2.00,vista.btnañadirfrapuchino);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
-	            agregarProducto(mesa2, "Frapuchino",2.00,vista.btnañadirfrapuchino);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
-	            agregarProducto(mesa3, "Frapuchino",2.00,vista.btnañadirfrapuchino);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
-	            agregarProducto(mesa4, "Frapuchino",2.00,vista.btnañadirfrapuchino);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
-	            agregarProducto(mesa5, "Frapuchino",2.00,vista.btnañadirfrapuchino);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
-	            agregarProducto(mesa6, "Frapuchino",2.00,vista.btnañadirfrapuchino);
-	        }
-	    }
-		if (e.getSource() == this.vista.btnañadircolacao) {
-			if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
-	            agregarProducto(mesa1, "Cola Cao",1.50,vista.btnañadircolacao);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
-	            agregarProducto(mesa2, "Cola Cao",1.50,vista.btnañadircolacao);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
-	            agregarProducto(mesa3, "Cola Cao",1.50,vista.btnañadircolacao);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
-	            agregarProducto(mesa4, "Cola Cao",1.50,vista.btnañadircolacao);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
-	            agregarProducto(mesa5, "Cola Cao",1.50,vista.btnañadircolacao);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
-	            agregarProducto(mesa6, "Cola Cao",1.50,vista.btnañadircolacao);
-	        }
-	    }
-		if (e.getSource() == this.vista.btnaladircafeconleche) {
-			if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
-	            agregarProducto(mesa1, "Cafe con leche",1.20,vista.btnaladircafeconleche);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
-	            agregarProducto(mesa2, "Cafe con leche",1.20,vista.btnaladircafeconleche);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
-	            agregarProducto(mesa3, "Cafe con leche",1.20,vista.btnaladircafeconleche);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
-	            agregarProducto(mesa4, "Cafe con leche",1.20,vista.btnaladircafeconleche);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
-	            agregarProducto(mesa5, "Cafe con leche",1.20,vista.btnaladircafeconleche);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
-	            agregarProducto(mesa6, "Cafe con leche",1.20,vista.btnaladircafeconleche);
-	        }
-	    }
-		if (e.getSource() == this.vista.btnañadircafelargo) {
-			if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
-	            agregarProducto(mesa1, "Cafe Largo",1.50,vista.btnañadircafelargo);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
-	            agregarProducto(mesa2, "Cafe Largo",1.50,vista.btnañadircafelargo);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
-	            agregarProducto(mesa3, "Cafe Largo",1.50,vista.btnañadircafelargo);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
-	            agregarProducto(mesa4, "Cafe Largo",1.50,vista.btnañadircafelargo);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
-	            agregarProducto(mesa5, "Cafe Largo",1.50,vista.btnañadircafelargo);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
-	            agregarProducto(mesa6, "Cafe Largo",1.50,vista.btnañadircafelargo);
-	        }
-	    }
-		if (e.getSource() == this.vista.btnañadirzumo) {
-			if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
-	            agregarProducto(mesa1, "Zumo",1,vista.btnañadirzumo);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
-	            agregarProducto(mesa2, "Zumo",1,vista.btnañadirzumo);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
-	            agregarProducto(mesa3, "Zumo",1,vista.btnañadirzumo);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
-	            agregarProducto(mesa4, "Zumo",1,vista.btnañadirzumo);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
-	            agregarProducto(mesa5, "Zumo",1,vista.btnañadirzumo);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
-	            agregarProducto(mesa6, "Zumo",1,vista.btnañadirzumo);
-	        }
-	    }
+		    agregarProductoPorMesa("Tostadas", 1.50, vista.btnañadirtostada);
+		} else if (e.getSource() == this.vista.btnañadirvolavena) {
+		    agregarProductoPorMesa("Avena", 2.50, vista.btnañadirvolavena);
+		} else if (e.getSource() == this.vista.btnañadircooki) {
+		    agregarProductoPorMesa("Cookie", 0.50, vista.btnañadircooki);
+		} else if (e.getSource() == this.vista.btnañadirtortitas) {
+		    agregarProductoPorMesa("Tortitas", 2.00, vista.btnañadirtortitas);
+		} else if (e.getSource() == this.vista.btnañadirtostadadejamon) {
+		    agregarProductoPorMesa("Tostadas de Jamon", 2.00, vista.btnañadirtostadadejamon);
+		} else if (e.getSource() == this.vista.btnañadircroassan) {
+		    agregarProductoPorMesa("Croassan", 1.20, vista.btnañadircroassan);
+		} else if (e.getSource() == this.vista.btnañadirpalmera) {
+		    agregarProductoPorMesa("Palmera", 1.00, vista.btnañadirpalmera);
+		} else if (e.getSource() == this.vista.btnañadirchurros) {
+		    agregarProductoPorMesa("Churros", 0.50, vista.btnañadirchurros);
+		} else if (e.getSource() == this.vista.btnañadircafesolo) {
+		    agregarProductoPorMesa("Cafe", 1.20, vista.btnañadircafesolo);
+		} else if (e.getSource() == this.vista.btnañadircortado) {
+		    agregarProductoPorMesa("Cortado", 1.50, vista.btnañadircortado);
+		} else if (e.getSource() == this.vista.btnañadircaramel) {
+		    agregarProductoPorMesa("Caramel", 2.50, vista.btnañadircaramel);
+		} else if (e.getSource() == this.vista.btnañadirfrapuchino) {
+		    agregarProductoPorMesa("Frapuchino", 2.00, vista.btnañadirfrapuchino);
+		} else if (e.getSource() == this.vista.btnañadircolacao) {
+		    agregarProductoPorMesa("Cola Cao", 1.50, vista.btnañadircolacao);
+		} else if (e.getSource() == this.vista.btnaladircafeconleche) {
+		    agregarProductoPorMesa("Cafe con leche", 1.20, vista.btnaladircafeconleche);
+		} else if (e.getSource() == this.vista.btnañadircafelargo) {
+		    agregarProductoPorMesa("Cafe Largo", 1.50, vista.btnañadircafelargo);
+		} else if (e.getSource() == this.vista.btnañadirzumo) {
+		    agregarProductoPorMesa("Zumo", 1.00, vista.btnañadirzumo);
+		}
+		
+		if (e.getSource() == this.vista.btneliminartostada) {
+		    eliminarProductoPorMesa("Tostadas", 1.50);
+		} else if (e.getSource() == this.vista.btneliminaravena) {
+		    eliminarProductoPorMesa("Avena", 2.50);
+		} else if (e.getSource() == this.vista.btneliminarcooki) {
+		    eliminarProductoPorMesa("Cookie", 0.50);
+		} else if (e.getSource() == this.vista.btneliminartortitas) {
+		    eliminarProductoPorMesa("Tortitas", 2.00);
+		} else if (e.getSource() == this.vista.btneliminartostadadejamon) {
+		    eliminarProductoPorMesa("Tostadas de Jamon", 2.00);
+		} else if (e.getSource() == this.vista.btneliminarcroassan) {
+		    eliminarProductoPorMesa("Croassan", 1.20);
+		} else if (e.getSource() == this.vista.btneliminarpalmera) {
+		    eliminarProductoPorMesa("Palmera", 1.00);
+		} else if (e.getSource() == this.vista.btneliminarchurros) {
+		    eliminarProductoPorMesa("Churros", 0.50);
+		} else if (e.getSource() == this.vista.btneliminarcafesolo) {
+		    eliminarProductoPorMesa("Cafe", 1.20);
+		} else if (e.getSource() == this.vista.btneliminarcortado) {
+		    eliminarProductoPorMesa("Cortado", 1.50);
+		} else if (e.getSource() == this.vista.btneliminarcaramel) {
+		    eliminarProductoPorMesa("Caramel", 2.50);
+		} else if (e.getSource() == this.vista.btneliminarfrapuchino) {
+		    eliminarProductoPorMesa("Frapuchino", 2.00);
+		} else if (e.getSource() == this.vista.btneliminarcolacao) {
+		    eliminarProductoPorMesa("Cola Cao", 1.50);
+		} else if (e.getSource() == this.vista.btneliminarcafeconleche) {
+		    eliminarProductoPorMesa("Cafe con leche", 1.20);
+		} else if (e.getSource() == this.vista.btneliminarcafelargo) {
+		    eliminarProductoPorMesa("Cafe Largo", 1.50);
+		} else if (e.getSource() == this.vista.btneliminarrzumo) {
+		    eliminarProductoPorMesa("Zumo", 1);
+		}
 		
 		if(e.getSource()==this.vista.btnAtras){
 			this.vista.panelnicio.setVisible(true);
@@ -458,10 +296,14 @@ public class Controlador implements ActionListener,MouseListener{
 		if(e.getSource()==this.vista.btnVueltasMesa) {
 			this.vista.panelComida.setVisible(false);
 			this.vista.panelMesa.setVisible(true);
+			this.vista.lblCantidadDineroComida.setText("");
+	        this.vista.lblPagarBebida.setText("");
 		}
 		if(e.getSource()==this.vista.btnVolverMesaBebida) {
 			this.vista.panelBebida.setVisible(false);
 			this.vista.panelMesa.setVisible(true);
+			this.vista.lblCantidadDineroComida.setText("");
+	        this.vista.lblPagarBebida.setText("");
 		}
 		if(e.getSource()==this.vista.btnComida) {
 			this.vista.panelBebida.setVisible(false);
@@ -471,323 +313,17 @@ public class Controlador implements ActionListener,MouseListener{
 			this.vista.panelBebida.setVisible(true);
 			this.vista.panelComida.setVisible(false);
 		}
-		
-		 
-		if (e.getSource() == this.vista.btneliminartostada) {
-			if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
-				eliminarProducto(mesa1, "Tostadas",1.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
-	        	eliminarProducto(mesa2, "Tostadas",1.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
-	        	eliminarProducto(mesa3, "Tostadas", 1.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
-	        	eliminarProducto(mesa4, "Tostadas",1.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
-	        	eliminarProducto(mesa5, "Tostadas",1.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
-	        	eliminarProducto(mesa6, "Tostadas",1.50);
-	        }
-	    }
-		if (e.getSource() == this.vista.btneliminaravena) {
-			if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
-				eliminarProducto(mesa1, "Avena",2.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
-	        	eliminarProducto(mesa2, "Avena",2.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
-	        	eliminarProducto(mesa3, "Avena", 2.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
-	        	eliminarProducto(mesa4, "Avena",2.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
-	        	eliminarProducto(mesa5, "Avena",2.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
-	        	eliminarProducto(mesa6, "Avena",2.50);
-	        }
-	    }
-		if (e.getSource() == this.vista.btneliminarcooki) {
-			if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
-				eliminarProducto(mesa1, "Cookie",0.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
-	        	eliminarProducto(mesa2, "Cookie",0.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
-	        	eliminarProducto(mesa3, "Cookie", 0.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
-	        	eliminarProducto(mesa4, "Cookie",0.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
-	        	eliminarProducto(mesa5, "Cookie",0.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
-	        	eliminarProducto(mesa6, "Cookie",0.50);
-	        }
-	    }
-		if (e.getSource() == this.vista.btneliminartortitas) {
-			if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
-				eliminarProducto(mesa1, "Tortitas",2.00);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
-	        	eliminarProducto(mesa2, "Tortitas",2.00);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
-	        	eliminarProducto(mesa3, "Tortitas", 2.00);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
-	        	eliminarProducto(mesa4, "Tortitas",2.00);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
-	        	eliminarProducto(mesa5, "Tortitas",2.00);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
-	        	eliminarProducto(mesa6, "Tortitas",2.00);
-	        }
-	    }
-		if (e.getSource() == this.vista.btneliminartostadadejamon) {
-			if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
-				eliminarProducto(mesa1, "Tostadas de Jamon",2.00);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
-	        	eliminarProducto(mesa2, "Tostadas de Jamon",2.00);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
-	        	eliminarProducto(mesa3, "Tostadas de Jamon", 2.00);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
-	        	eliminarProducto(mesa4, "Tostadas de Jamon",2.00);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
-	        	eliminarProducto(mesa5, "Tostadas de Jamon",2.00);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
-	        	eliminarProducto(mesa6, "Tostadas de Jamon",2.00);
-	        }
-	    }
-		if (e.getSource() == this.vista.btneliminarcroassan) {
-			if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
-				eliminarProducto(mesa1, "Croassan",1.20);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
-	        	eliminarProducto(mesa2, "Croassan",1.20);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
-	        	eliminarProducto(mesa3, "Croassan", 1.20);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
-	        	eliminarProducto(mesa4, "Croassan",1.20);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
-	        	eliminarProducto(mesa5, "Croassan",1.20);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
-	        	eliminarProducto(mesa6, "Croassan",1.20);
-	        }
-	    }
-		if (e.getSource() == this.vista.btneliminarpalmera) {
-			if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
-				eliminarProducto(mesa1, "Palmera",1.00);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
-	        	eliminarProducto(mesa2, "Palmera",1.00);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
-	        	eliminarProducto(mesa3, "Palmera", 1.00);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
-	        	eliminarProducto(mesa4, "Palmera",1.00);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
-	        	eliminarProducto(mesa5, "Palmera",1.00);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
-	        	eliminarProducto(mesa6, "Palmera",1.00);
-	        }
-	    }
-		if (e.getSource() == this.vista.btneliminarchurros) {
-			if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
-				eliminarProducto(mesa1, "Churros",0.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
-	        	eliminarProducto(mesa2, "Churros",0.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
-	        	eliminarProducto(mesa3, "Churros",0.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
-	        	eliminarProducto(mesa4, "Churros",0.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
-	        	eliminarProducto(mesa5, "Churros",0.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
-	        	eliminarProducto(mesa6, "Churros",0.50);
-	        }
-	    }
-		if (e.getSource() == this.vista.btneliminarcafesolo) {
-			if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
-				eliminarProducto(mesa1, "Cafe",1.20);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
-	        	eliminarProducto(mesa2, "Cafe",1.20);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
-	        	eliminarProducto(mesa3, "Cafe",1.20);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
-	        	eliminarProducto(mesa4, "Cafe",1.20);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
-	        	eliminarProducto(mesa5, "Cafe",1.20);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
-	        	eliminarProducto(mesa6, "Cafe",1.20);
-	        }
-	    }
-		if (e.getSource() == this.vista.btneliminarcortado) {
-			if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
-				eliminarProducto(mesa1, "Cortado",1.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
-	        	eliminarProducto(mesa2, "Cortado",1.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
-	        	eliminarProducto(mesa3, "Cortado",1.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
-	        	eliminarProducto(mesa4, "Cortado",1.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
-	        	eliminarProducto(mesa5, "Cortado",1.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
-	        	eliminarProducto(mesa6, "Cortado",1.50);
-	        }
-	    }
-		if (e.getSource() == this.vista.btneliminarcaramel) {
-			if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
-				eliminarProducto(mesa1, "Caramel",2.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
-	        	eliminarProducto(mesa2, "Caramel",2.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
-	        	eliminarProducto(mesa3, "Caramel",2.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
-	        	eliminarProducto(mesa4, "Caramel",2.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
-	        	eliminarProducto(mesa5, "Caramel",2.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
-	        	eliminarProducto(mesa6, "Caramel",2.50);
-	        }
-	    }
-		if (e.getSource() == this.vista.btneliminarfrapuchino) {
-			if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
-				eliminarProducto(mesa1, "Frapuchino",2.00);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
-	        	eliminarProducto(mesa2, "Frapuchino",2.00);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
-	        	eliminarProducto(mesa3, "Frapuchino",2.00);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
-	        	eliminarProducto(mesa4, "Frapuchino",2.00);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
-	        	eliminarProducto(mesa5, "Frapuchino",2.00);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
-	        	eliminarProducto(mesa6, "Frapuchino",2.00);
-	        }
-	    }
-		if (e.getSource() == this.vista.btneliminarcolacao) {
-			if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
-				eliminarProducto(mesa1, "Cola Cao",1.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
-	        	eliminarProducto(mesa2, "Cola Cao",1.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
-	        	eliminarProducto(mesa3, "Cola Cao",1.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
-	        	eliminarProducto(mesa4, "Cola Cao",1.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
-	        	eliminarProducto(mesa5, "Cola Cao",1.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
-	        	eliminarProducto(mesa6, "Cola Cao",1.50);
-	        }
-	    }
-		if (e.getSource() == this.vista.btneliminarcafeconleche) {
-			if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
-				eliminarProducto(mesa1, "Cafe con leche",1.20);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
-	        	eliminarProducto(mesa2, "Cafe con leche",1.20);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
-	        	eliminarProducto(mesa3, "Cafe con leche",1.20);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
-	        	eliminarProducto(mesa4, "Cafe con leche",1.20);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
-	        	eliminarProducto(mesa5, "Cafe con leche",1.20);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
-	        	eliminarProducto(mesa6, "Cafe con leche",1.20);
-	        }
-	    }
-		if (e.getSource() == this.vista.btneliminarcafelargo) {
-			if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
-				eliminarProducto(mesa1, "Cafe Largo",1.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
-	        	eliminarProducto(mesa2, "Cafe Largo",1.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
-	        	eliminarProducto(mesa3, "Cafe Largo",1.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
-	        	eliminarProducto(mesa4, "Cafe Largo",1.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
-	        	eliminarProducto(mesa5, "Cafe Largo",1.50);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
-	        	eliminarProducto(mesa6, "Cafe Largo",1.50);
-	        }
-	    }
-		if (e.getSource() == this.vista.btneliminarrzumo) {
-			if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
-				eliminarProducto(mesa1, "Zumo",1);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
-	        	eliminarProducto(mesa2, "Zumo",1);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
-	        	eliminarProducto(mesa3, "Zumo",1);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
-	        	eliminarProducto(mesa4, "Zumo",1);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
-	        	eliminarProducto(mesa5, "Zumo",1);
-	        } else if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
-	        	eliminarProducto(mesa6, "Zumo",1);
-	        }
-	    }
-		    if(e.getSource()==this.vista.btnPagarComida) {
-		    	Double cantidad=null;
-		    	if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
-		    		cantidad=pagar(mesa1,modelo,this.vista.list_1);
-		    		this.vista.lblCantidadDineroComida.setText(String.valueOf(cantidad)+"€");
-		    		this.vista.lblPagarBebida.setText(String.valueOf(cantidad)+"€");
-		    	}if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
-		    		cantidad=pagar(mesa2,modelo,this.vista.list_1);
-		    		this.vista.lblCantidadDineroComida.setText(String.valueOf(cantidad)+"€");
-		    		this.vista.lblPagarBebida.setText(String.valueOf(cantidad)+"€");
-		    	}if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
-		    		cantidad=pagar(mesa3,modelo,this.vista.list_1);
-		    		this.vista.lblCantidadDineroComida.setText(String.valueOf(cantidad)+"€");
-		    		this.vista.lblPagarBebida.setText(String.valueOf(cantidad)+"€");
-		    	}if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
-		    		cantidad=pagar(mesa4,modelo,this.vista.list_1);
-		    		this.vista.lblCantidadDineroComida.setText(String.valueOf(cantidad)+"€");
-		    		this.vista.lblPagarBebida.setText(String.valueOf(cantidad)+"€");
-		    	}if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
-		    		cantidad=pagar(mesa5,modelo,this.vista.list_1);
-		    		this.vista.lblCantidadDineroComida.setText(String.valueOf(cantidad)+"€");
-		    		this.vista.lblPagarBebida.setText(String.valueOf(cantidad)+"€");
-		    	}if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
-		    		cantidad=pagar(mesa6,modelo,this.vista.list_1);
-		    		this.vista.lblCantidadDineroComida.setText(String.valueOf(cantidad)+"€");
-		    		this.vista.lblPagarBebida.setText(String.valueOf(cantidad)+"€");
-		    	}	
+
+		   if (e.getSource() == this.vista.btnPagarComida) {
+		        Double cantidad = pagarPorMesa(modelo, this.vista.list_1);
+		        this.vista.lblCantidadDineroComida.setText(String.valueOf(cantidad) + "€");
+		        this.vista.lblPagarBebida.setText(String.valueOf(cantidad) + "€");
 		    }
-		    if(e.getSource()==this.vista.btnPagarBebidas) {
-		    	Double cantidad=0.0;
-		    	if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
-		    		cantidad=pagar(mesa1,modelo,this.vista.list_2);
-		    		this.vista.lblCantidadDineroComida.setText(String.valueOf(cantidad)+"€");
-		    		this.vista.lblPagarBebida.setText(String.valueOf(cantidad)+"€");
-		    	}if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
-		    		cantidad=pagar(mesa2,modelo,this.vista.list_2);
-		    		this.vista.lblCantidadDineroComida.setText(String.valueOf(cantidad)+"€");
-		    		this.vista.lblPagarBebida.setText(String.valueOf(cantidad)+"€");
-		    	}if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
-		    		cantidad=pagar(mesa3,modelo,this.vista.list_2);
-		    		this.vista.lblCantidadDineroComida.setText(String.valueOf(cantidad)+"€");
-		    		this.vista.lblPagarBebida.setText(String.valueOf(cantidad)+"€");
-		    	}if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
-		    		cantidad=pagar(mesa4,modelo,this.vista.list_2);
-		    		this.vista.lblCantidadDineroComida.setText(String.valueOf(cantidad)+"€");
-		    		this.vista.lblPagarBebida.setText(String.valueOf(cantidad)+"€");
-		    	}if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
-		    		cantidad=pagar(mesa5,modelo,this.vista.list_2);
-		    		this.vista.lblCantidadDineroComida.setText(String.valueOf(cantidad)+"€");
-		    		this.vista.lblPagarBebida.setText(String.valueOf(cantidad)+"€");
-		    	}if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
-		    		cantidad=pagar(mesa6,modelo,this.vista.list_2);
-		    		this.vista.lblCantidadDineroComida.setText(String.valueOf(cantidad)+"€");
-		    		this.vista.lblPagarBebida.setText(String.valueOf(cantidad)+"€");
-		    	}	
-		    }
-		    if(e.getSource()==this.vista.btnNuevoEmpleado_1) {
-		    	
-		    	for(int i=0;i<totalempleados.size();i++) {
-					if( totalempleados.get(i).getNombre().equalsIgnoreCase(this.vista.textFieldInicioSesion.getText())&& totalempleados.get(i).getContraseña().equalsIgnoreCase(this.vista.textFieldContraseña.getText())) {
-						this.vista.lblFalloInicioSesion.setText("Este usuario y contraseña ya existen");					
-						 this.vista.textFieldInicioSesion.setText("");
-						 this.vista.textFieldContraseña.setText("");
-					}else if(this.vista.textFieldInicioSesion.getText().isEmpty() && this.vista.textFieldContraseña.getText().isEmpty()){
-						this.vista.lblFalloInicioSesion.setText("Campos vacios");
-						
-					}else {
-						agregarNuevoUsuario(this.vista.textFieldInicioSesion.getText(),this.vista.textFieldContraseña.getText());
-						this.vista.lblFalloInicioSesion.setText("Nuevo usuario creado");
-						 this.vista.textFieldInicioSesion.setText("");
-						 this.vista.textFieldContraseña.setText("");
-					}	
-		    }
-		    	
-		    	
+
+		    if (e.getSource() == this.vista.btnPagarBebidas) {
+		        Double cantidad = pagarPorMesa(modelo, this.vista.list_2);
+		        this.vista.lblCantidadDineroComida.setText(String.valueOf(cantidad) + "€");
+		        this.vista.lblPagarBebida.setText(String.valueOf(cantidad) + "€");
 		    }
 		    
 		    if(e.getSource()==this.vista.btnInventarioComida) {
@@ -810,24 +346,16 @@ public class Controlador implements ActionListener,MouseListener{
 		    if(e.getSource()==this.vista.btnEliminarInventario) {
 		    	eliminarinventario();
 		   }
-		    if(e.getSource()==this.vista.btnVolverMesas) {
-		    	this.vista.panelMesa.setVisible(true);
-		    	this.vista.panelnvetarioComida.setVisible(false);
-		    }
+		   
+		  
 		      
 		
 }	
-	@Override
-	public void mouseEntered(MouseEvent e) {
 	
-		if(e.getSource()==vista.btnMesa1) {
-			vista.btnMesa1.setForeground(Color.RED);
-		}
-	}
 
 
 	
-
+//Metodos
 	public void ponerImagen() {
 		vista.btnMesa1.setIcon(fotoEscalar2(this.vista.btnMesa1,"imagenes/1.jpg"));
 		vista.btnMesa2.setIcon(fotoEscalar2(this.vista.btnMesa2,"imagenes/2.jpg"));
@@ -857,6 +385,8 @@ public class Controlador implements ActionListener,MouseListener{
 		vista.lblFondoInventario.setIcon(fotoEscalar(this.vista.lblFondoInventario,"imagenes/fondo.png"));
 		vista.lblFondoPanelInicio.setIcon(fotoEscalar(this.vista.lblFondoPanelInicio,"imagenes/fondo.png"));
 		vista.lblFondoMesa.setIcon(fotoEscalar(this.vista.lblFondoMesa,"imagenes/fondo.png"));
+		vista.lbTextoComandaBebida.setIcon(fotoEscalar(this.vista.lbTextoComandaBebida,"imagenes/fotocomanda.png"));
+		vista.lblIamgenComandaComida.setIcon(fotoEscalar(this.vista.lblIamgenComandaComida,"imagenes/fotocomanda.png"));
 	}
 	public List rellenar(Personal empleados) {
 		List<Personal>empleados1=new ArrayList<>();
@@ -901,11 +431,67 @@ public class Controlador implements ActionListener,MouseListener{
 	}
 
 	public void hora(JLabel label) {
-		 SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm:ss");
-	        String horaActual = formatoHora.format(new Date());
-	        label.setText(horaActual);
+		SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm:ss");
+        String horaActual = formatoHora.format(new Date());
+        label.setText(horaActual);
 	}
-	
+	private void agregarProductoPorMesa(String producto, double precio, JButton button) {
+	    String mesaNombre = this.vista.lblnombremesaBebida.getText();
+	    int mesaNumero = Integer.parseInt(mesaNombre.split(" ")[1]);
+	    
+	    switch (mesaNumero) {
+	        case 1:
+	            agregarProducto(mesa1, producto, precio, button);
+	            break;
+	        case 2:
+	            agregarProducto(mesa2, producto, precio, button);
+	            break;
+	        case 3:
+	            agregarProducto(mesa3, producto, precio, button);
+	            break;
+	        case 4:
+	            agregarProducto(mesa4, producto, precio, button);
+	            break;
+	        case 5:
+	            agregarProducto(mesa5, producto, precio, button);
+	            break;
+	        case 6:
+	            agregarProducto(mesa6, producto, precio, button);
+	            break;
+	        default:
+	           
+	            break;
+	    }
+	}
+	private void eliminarProductoPorMesa(String producto, double precio) {
+	    String mesaNombre = this.vista.lblnombremesaBebida.getText();
+	    int mesaNumero = Integer.parseInt(mesaNombre.split(" ")[1]); 
+	    
+	    switch (mesaNumero) {
+	        case 1:
+	            eliminarProducto(mesa1, producto, precio);
+	            break;
+	        case 2:
+	            eliminarProducto(mesa2, producto, precio);
+	            break;
+	        case 3:
+	            eliminarProducto(mesa3, producto, precio);
+	            break;
+	        case 4:
+	            eliminarProducto(mesa4, producto, precio);
+	            break;
+	        case 5:
+	            eliminarProducto(mesa5, producto, precio);
+	            break;
+	        case 6:
+	            eliminarProducto(mesa6, producto, precio);
+	            break;
+	        default:
+	          
+	            break;
+	    }
+	}
+
 	public void agregarProducto(Mesa mesa, String producto, double precio,JButton boton) {
 	    for (Producto prod : productostotales) {
 	        if (prod.getNombre().equals(producto) && prod.getCantidad() > 0) { 
@@ -921,6 +507,22 @@ public class Controlador implements ActionListener,MouseListener{
 	    }
 
 	    actualizarModeloDeLista(mesa);
+	}
+	
+	public void actualizarModeloDeLista(Mesa mesa) {
+	    if (modelo != null) {
+	        modelo.clear(); 
+	        HashMap<String, Integer> comanda = mesa.getComanda(); 
+	        for (Map.Entry<String, Integer> entry : comanda.entrySet()) {
+	            String producto = entry.getKey();
+	            Integer cantidad = entry.getValue();
+	            if (cantidad > 0) {
+	                modelo.addElement(cantidad + " || " + producto); 
+	            }
+	        }
+	        vista.list_2.setModel(modelo);
+	        vista.list_1.setModel(modelo);
+	    } 
 	}
 	public void agregarcombobox(List<Producto>productos) {
 			this.vista.comboBoxNombreProducto.addItem("Tostadas");
@@ -941,23 +543,7 @@ public class Controlador implements ActionListener,MouseListener{
 			this.vista.comboBoxNombreProducto.addItem("Zumo");
 	}
 
-	public void actualizarModeloDeLista(Mesa mesa) {
-	  
-	    
-	    if (modelo != null) {
-	        modelo.clear(); 
-	        HashMap<String, Integer> comanda = mesa.getComanda(); 
-	        for (Map.Entry<String, Integer> entry : comanda.entrySet()) {
-	            String producto = entry.getKey();
-	            Integer cantidad = entry.getValue();
-	            if (cantidad > 0) {
-	                modelo.addElement(cantidad + " || " + producto); 
-	            }
-	        }
-	        vista.list_2.setModel(modelo);
-	        vista.list_1.setModel(modelo);
-	    } 
-	}
+	
 
 
 	public void eliminarProducto(Mesa mesa, String producto, double precio) {
@@ -1008,6 +594,35 @@ public class Controlador implements ActionListener,MouseListener{
 		        }
 		    }
 		    actualizarModeloDeLista(mesa);
+	}
+	private Double pagarPorMesa(DefaultListModel<String> modelo, JList<String> list) {
+	    String mesaNombre = this.vista.lblnombremesaBebida.getText();
+	    Mesa mesa = null;
+
+	    switch (mesaNombre) {
+	        case "Mesa 1":
+	            mesa = mesa1;
+	            break;
+	        case "Mesa 2":
+	            mesa = mesa2;
+	            break;
+	        case "Mesa 3":
+	            mesa = mesa3;
+	            break;
+	        case "Mesa 4":
+	            mesa = mesa4;
+	            break;
+	        case "Mesa 5":
+	            mesa = mesa5;
+	            break;
+	        case "Mesa 6":
+	            mesa = mesa6;
+	            break;
+	        default:
+	        break;
+	    }
+
+	    return pagar(mesa, modelo, list);
 	}
 	public Double pagar(Mesa mesa, DefaultListModel<String> modelo, JList<String> list) {
 	    double total = 0.0;
@@ -1129,24 +744,5 @@ public class Controlador implements ActionListener,MouseListener{
  	   
  	    this.vista.textFieldCantidad.setText("");
 	}
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+
 }
