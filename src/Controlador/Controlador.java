@@ -1,5 +1,6 @@
 package Controlador;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -30,7 +31,7 @@ import Modelo.Personal;
 import Modelo.Producto;
 import Vista.InicioSesion;
 
-public class Controlador implements ActionListener{
+public class Controlador implements ActionListener,MouseListener{
 	InicioSesion vista=new InicioSesion();
 	Personal empleados;
 	Producto inventario;
@@ -57,6 +58,12 @@ public class Controlador implements ActionListener{
 		this.vista.btnMesa4.addActionListener(this);
 		this.vista.btnMesa5.addActionListener(this);
 		this.vista.btnMesa6.addActionListener(this);
+		this.vista.btnMesa1.addMouseListener(this);;
+		this.vista.btnMesa2.addMouseListener(this);
+		this.vista.btnMesa3.addMouseListener(this);
+		this.vista.btnMesa4.addMouseListener(this);
+		this.vista.btnMesa5.addMouseListener(this);
+		this.vista.btnMesa6.addMouseListener(this);
 		this.vista.btnAtras.addActionListener(this);
 		this.vista.btnVueltasMesa.addActionListener(this);
 		this.vista.btnVolverMesaBebida.addActionListener(this);
@@ -79,7 +86,6 @@ public class Controlador implements ActionListener{
 		this.vista.btnañadirpalmera.addActionListener(this);
 		this.vista.btnañadirchurros.addActionListener(this);
 		this.vista.btnNuevoEmpleado_1.addActionListener(this);
-		this.vista.btnUsuario.addActionListener(this);
 		this.vista.btnPagarComida.addActionListener(this);
 		this.vista.btnPagarBebidas.addActionListener(this);
 		this.vista.btneliminartostada.addActionListener(this);
@@ -105,11 +111,10 @@ public class Controlador implements ActionListener{
 		this.vista.btnVolverMesas.addActionListener(this);
 		this.vista.comboBoxNombreProducto.addActionListener(this);
 		this.vista.btnVolverMesaBebida.addActionListener(this);
-		this.vista.btnVolver.addActionListener(this);
 		ponerImagen();
 		hora(this.vista.lblHora);
 		hora(this.vista.lblHora1);
-		hora(this.vista.lblHora_1);
+		
 		totalempleados = rellenar(empleados);
 		productostotales=rellenarproducto(inventario, productostotales);	
 		List<Producto>productos=new ArrayList<Producto>();
@@ -166,23 +171,43 @@ public class Controlador implements ActionListener{
 		
 		
 		if (e.getSource() == this.vista.btnIniciarSesion) {
+			   this.vista.lblFalloInicioSesion.setText("");
 		    String nombreUsuario = this.vista.textFieldInicioSesion.getText();
 		    String contraseña = this.vista.textFieldContraseña.getText();
+		    this.vista.textFieldInicioSesion.setText("");
+	        this.vista.textFieldContraseña.setText("");
 		    if (nombreUsuario.isEmpty() || contraseña.isEmpty()) {
-		        this.vista.lblFallo.setText("Los campos no pueden estar vacíos");
-		        
+		        this.vista.lblFalloInicioSesion.setText("Los campos no pueden estar vacíos");
 		    }
 		 for (Personal empleado : totalempleados) {
-		        if (empleado.getNombre().equalsIgnoreCase(nombreUsuario) && empleado.getContraseña().equals(contraseña)) {
+			 if(!empleado.getNombre().equalsIgnoreCase(nombreUsuario)) {
+		        	this.vista.lblFalloInicioSesion.setText("El nombre de usuario es incorrecto");
+			        this.vista.textFieldInicioSesion.setText("");
+			        this.vista.textFieldContraseña.setText("");
+		        }  
+			 if(!empleado.getContraseña().equalsIgnoreCase(nombreUsuario)) {
+		        	this.vista.lblFalloInicioSesion.setText("La contraseña es incorrecto");
+			        this.vista.textFieldInicioSesion.setText("");
+			        this.vista.textFieldContraseña.setText("");
+		        } 
+			 if (empleado.getNombre().equalsIgnoreCase(nombreUsuario) && empleado.getContraseña().equals(contraseña)) {
 		        	 this.vista.panelnicio.setVisible(false);
 				        this.vista.panelMesa.setVisible(true);
 				        this.vista.textFieldInicioSesion.setText("");
 				        this.vista.textFieldContraseña.setText("");
-		        }else {
-		        	this.vista.lblFallo.setText("El nombre de usuario o la contraseña son incorrectos");
+		        }
+			 if(!empleado.getNombre().equalsIgnoreCase(nombreUsuario) && !empleado.getContraseña().equals(contraseña)){
+		        	this.vista.lblFalloInicioSesion.setText("El nombre de usuario o la contraseña son incorrectos");
 			        this.vista.textFieldInicioSesion.setText("");
 			        this.vista.textFieldContraseña.setText("");
 		        }
+			 if(!empleado.getContraseña().equalsIgnoreCase(nombreUsuario)) {
+		        	this.vista.lblFalloInicioSesion.setText("La contraseña es incorrecto");
+			        this.vista.textFieldInicioSesion.setText("");
+			        this.vista.textFieldContraseña.setText("");
+		        }
+		      
+		        
 		    }
 		}
 		if (e.getSource() == this.vista.btnañadirtostada) {
@@ -426,9 +451,6 @@ public class Controlador implements ActionListener{
 	        }
 	    }
 		
-		 
-			
-
 		if(e.getSource()==this.vista.btnAtras){
 			this.vista.panelnicio.setVisible(true);
 			this.vista.panelMesa.setVisible(false);
@@ -696,76 +718,91 @@ public class Controlador implements ActionListener{
 		    	if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
 		    		cantidad=pagar(mesa1,modelo,this.vista.list_1);
 		    		this.vista.lblCantidadDineroComida.setText(String.valueOf(cantidad)+"€");
+		    		this.vista.lblPagarBebida.setText(String.valueOf(cantidad)+"€");
 		    	}if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
 		    		cantidad=pagar(mesa2,modelo,this.vista.list_1);
 		    		this.vista.lblCantidadDineroComida.setText(String.valueOf(cantidad)+"€");
+		    		this.vista.lblPagarBebida.setText(String.valueOf(cantidad)+"€");
 		    	}if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
 		    		cantidad=pagar(mesa3,modelo,this.vista.list_1);
-		    		;
 		    		this.vista.lblCantidadDineroComida.setText(String.valueOf(cantidad)+"€");
+		    		this.vista.lblPagarBebida.setText(String.valueOf(cantidad)+"€");
 		    	}if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
 		    		cantidad=pagar(mesa4,modelo,this.vista.list_1);
 		    		this.vista.lblCantidadDineroComida.setText(String.valueOf(cantidad)+"€");
+		    		this.vista.lblPagarBebida.setText(String.valueOf(cantidad)+"€");
 		    	}if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
 		    		cantidad=pagar(mesa5,modelo,this.vista.list_1);
 		    		this.vista.lblCantidadDineroComida.setText(String.valueOf(cantidad)+"€");
+		    		this.vista.lblPagarBebida.setText(String.valueOf(cantidad)+"€");
 		    	}if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
 		    		cantidad=pagar(mesa6,modelo,this.vista.list_1);
 		    		this.vista.lblCantidadDineroComida.setText(String.valueOf(cantidad)+"€");
+		    		this.vista.lblPagarBebida.setText(String.valueOf(cantidad)+"€");
 		    	}	
 		    }
 		    if(e.getSource()==this.vista.btnPagarBebidas) {
 		    	Double cantidad=0.0;
 		    	if (this.vista.lblnombremesaBebida.getText().equals("Mesa 1")) {
 		    		cantidad=pagar(mesa1,modelo,this.vista.list_2);
+		    		this.vista.lblCantidadDineroComida.setText(String.valueOf(cantidad)+"€");
 		    		this.vista.lblPagarBebida.setText(String.valueOf(cantidad)+"€");
 		    	}if (this.vista.lblnombremesaBebida.getText().equals("Mesa 2")) {
 		    		cantidad=pagar(mesa2,modelo,this.vista.list_2);
+		    		this.vista.lblCantidadDineroComida.setText(String.valueOf(cantidad)+"€");
 		    		this.vista.lblPagarBebida.setText(String.valueOf(cantidad)+"€");
 		    	}if (this.vista.lblnombremesaBebida.getText().equals("Mesa 3")) {
 		    		cantidad=pagar(mesa3,modelo,this.vista.list_2);
+		    		this.vista.lblCantidadDineroComida.setText(String.valueOf(cantidad)+"€");
 		    		this.vista.lblPagarBebida.setText(String.valueOf(cantidad)+"€");
 		    	}if (this.vista.lblnombremesaBebida.getText().equals("Mesa 4")) {
 		    		cantidad=pagar(mesa4,modelo,this.vista.list_2);
+		    		this.vista.lblCantidadDineroComida.setText(String.valueOf(cantidad)+"€");
 		    		this.vista.lblPagarBebida.setText(String.valueOf(cantidad)+"€");
 		    	}if (this.vista.lblnombremesaBebida.getText().equals("Mesa 5")) {
 		    		cantidad=pagar(mesa5,modelo,this.vista.list_2);
+		    		this.vista.lblCantidadDineroComida.setText(String.valueOf(cantidad)+"€");
 		    		this.vista.lblPagarBebida.setText(String.valueOf(cantidad)+"€");
 		    	}if (this.vista.lblnombremesaBebida.getText().equals("Mesa 6")) {
 		    		cantidad=pagar(mesa6,modelo,this.vista.list_2);
+		    		this.vista.lblCantidadDineroComida.setText(String.valueOf(cantidad)+"€");
 		    		this.vista.lblPagarBebida.setText(String.valueOf(cantidad)+"€");
 		    	}	
 		    }
 		    if(e.getSource()==this.vista.btnNuevoEmpleado_1) {
-		    	this.vista.panelnicio.setVisible(false);
-		    	this.vista.panelCrearUsuario.setVisible(true);
-		    	this.vista.lblFalloPanelUsuario.setText("");
+		    	
+		    	for(int i=0;i<totalempleados.size();i++) {
+					if( totalempleados.get(i).getNombre().equalsIgnoreCase(this.vista.textFieldInicioSesion.getText())&& totalempleados.get(i).getContraseña().equalsIgnoreCase(this.vista.textFieldContraseña.getText())) {
+						this.vista.lblFalloInicioSesion.setText("Este usuario y contraseña ya existen");					
+						 this.vista.textFieldInicioSesion.setText("");
+						 this.vista.textFieldContraseña.setText("");
+					}else if(this.vista.textFieldInicioSesion.getText().isEmpty() && this.vista.textFieldContraseña.getText().isEmpty()){
+						this.vista.lblFalloInicioSesion.setText("Campos vacios");
+						
+					}else {
+						agregarNuevoUsuario(this.vista.textFieldInicioSesion.getText(),this.vista.textFieldContraseña.getText());
+						this.vista.lblFalloInicioSesion.setText("Nuevo usuario creado");
+						 this.vista.textFieldInicioSesion.setText("");
+						 this.vista.textFieldContraseña.setText("");
+					}	
+		    }
+		    	
 		    	
 		    }
-		    if(e.getSource()==this.vista.btnUsuario) {
-		    	for(int i=0;i<totalempleados.size();i++) {
-					if( totalempleados.get(i).getNombre().equals(this.vista.textFieldPanelNombreUsuario.getText())&& totalempleados.get(i).getContraseña().equals(this.vista.textFieldPanelContraseña.getText())) {
-						this.vista.lblFalloPanelUsuario.setText("Este usuario y contraseña ya existen");					
-					}
-				}
-		    	if(this.vista.textFieldPanelNombreUsuario.getText().isEmpty() || this.vista.textFieldPanelContraseña.getText().isEmpty()){
-					this.vista.lblFalloPanelUsuario.setText("Campos vacios");
-				}else {
-					agregarNuevoUsuario(this.vista.textFieldPanelNombreUsuario.getText(),this.vista.textFieldPanelContraseña.getText());
-					this.vista.panelCrearUsuario.setVisible(false);
-					this.vista.panelnicio.setVisible(true);
-					 this.vista.textFieldPanelNombreUsuario.setText("");
-					 this.vista.textFieldPanelContraseña.setText("");
-				}	
-		    }
-		    if(e.getSource()==this.vista.btnVolver) {
-		    	this.vista.panelnicio.setVisible(true);
-		    	this.vista.panelCrearUsuario.setVisible(false);
-		    }
+		    
 		    if(e.getSource()==this.vista.btnInventarioComida) {
 		    	this.vista.panelMesa.setVisible(false);
 		    	this.vista.panelnvetarioComida.setVisible(true);
 		    }
+		    if(e.getSource()==this.vista.comboBoxNombreProducto) {
+		    	String productoSeleccionado = (String) this.vista.comboBoxNombreProducto.getSelectedItem();
+			    	 for (Producto producto : productostotales) {
+			    	            if(producto.getNombre().equalsIgnoreCase(productoSeleccionado)) {
+			    	            	this.vista.lblCantidadActual_1.setText(String.valueOf(producto.getCantidad()));
+			    	            }   
+			    	 
+		    }
+		   }
 		    if(e.getSource()==this.vista.btnAñadirInventario) {
 		    	añadirinventario();
 
@@ -777,11 +814,17 @@ public class Controlador implements ActionListener{
 		    	this.vista.panelMesa.setVisible(true);
 		    	this.vista.panelnvetarioComida.setVisible(false);
 		    }
-		    
+		      
 		
+}	
+	@Override
+	public void mouseEntered(MouseEvent e) {
 	
-	
-}
+		if(e.getSource()==vista.btnMesa1) {
+			vista.btnMesa1.setForeground(Color.RED);
+		}
+	}
+
 
 	
 
@@ -814,7 +857,6 @@ public class Controlador implements ActionListener{
 		vista.lblFondoInventario.setIcon(fotoEscalar(this.vista.lblFondoInventario,"imagenes/fondo.png"));
 		vista.lblFondoPanelInicio.setIcon(fotoEscalar(this.vista.lblFondoPanelInicio,"imagenes/fondo.png"));
 		vista.lblFondoMesa.setIcon(fotoEscalar(this.vista.lblFondoMesa,"imagenes/fondo.png"));
-		vista.lblFondoPanelUsuario.setIcon(fotoEscalar(this.vista.lblFondoMesa,"imagenes/fondo.png"));
 	}
 	public List rellenar(Personal empleados) {
 		List<Personal>empleados1=new ArrayList<>();
@@ -1029,12 +1071,12 @@ public class Controlador implements ActionListener{
 	    	            }else if(productoSeleccionado.equalsIgnoreCase("Cafe Largo")) {
 	    	            	this.vista.btnañadircafelargo.setEnabled(true);
 	    	            }else if(productoSeleccionado.equalsIgnoreCase("Zumo")) {
-	    	            	this.vista.btnañadirzumo.setEnabled(true);
+	    	            	this.vista.lblFalloInventario.setEnabled(true);
 	    	            }
 	    	        }
 	    	    }
 	    }else {
-	    	this.vista.lblTextError.setText("Esa cantidad no se puede");
+	    	this.vista.lblFalloInventario.setText("Esa cantidad no se puede");
 	    }
 	    this.vista.textFieldCantidad.setText("");
 	}
@@ -1082,9 +1124,29 @@ public class Controlador implements ActionListener{
 		    	        }
 		    	    }
  	    }else {
- 	    	this.vista.lblTextError.setText("Esa cantidad no se puede");
+ 	    	this.vista.lblFalloInventario.setText("Esa cantidad no se puede");
  	    }
  	   
  	    this.vista.textFieldCantidad.setText("");
+	}
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
