@@ -132,6 +132,13 @@ public class InicioSesion extends JFrame {
 	public JLabel lblFalloInventario;
 	public JLabel lbTextoComandaBebida;
 	public JLabel lblIamgenComandaComida;
+	public JLabel lblestadomesa1;
+	public JLabel lblestadomesa2;
+	public JLabel lblestadomesa3;
+	public JLabel lblestadomesa4;
+	public JLabel lblestadomesa5;
+	public JLabel lblestadomesa6;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -161,6 +168,125 @@ public class InicioSesion extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+																							
+																							panelMesa = new JPanel();
+																							panelMesa.setBackground(new Color(255, 255, 128));
+																							panelMesa.setBounds(0, 0, 834, 553);
+																							contentPane.add(panelMesa);
+																							panelMesa.setLayout(null);
+																							
+																							btnMesa1 = new JButton("");
+																							btnMesa1.setForeground(Color.BLACK);
+																									
+																									JLabel lblestadomesa5 = new JLabel("Libre");
+																									lblestadomesa5.setForeground(new Color(0, 64, 0));
+																									lblestadomesa5.setHorizontalAlignment(SwingConstants.CENTER);
+																									lblestadomesa5.setFont(new Font("Rage Italic", Font.PLAIN, 25));
+																									lblestadomesa5.setBounds(246, 310, 89, 76);
+																									panelMesa.add(lblestadomesa5);
+																							
+																									
+																									btnInventarioComida = new JButton("Inventario Comida");
+																									btnInventarioComida.setBackground(new Color(128, 255, 128));
+																									btnInventarioComida.setBounds(577, 261, 234, 121);
+																									panelMesa.add(btnInventarioComida);
+																									btnMesa1.setBounds(246, 124, 89, 79);
+																									panelMesa.add(btnMesa1);
+																									panelMesa.setVisible(false);
+																									
+																									
+					        
+																									 btnMesa2 = new JButton("");
+																									 btnMesa2.addActionListener(new ActionListener() {
+																									 	public void actionPerformed(ActionEvent e) {
+																									 	}
+																									 });
+																									 btnMesa2.setBounds(404, 124, 89, 79);
+																									 panelMesa.add(btnMesa2);
+																									 
+																									  btnMesa3 = new JButton("");
+																									  btnMesa3.setBounds(246, 248, 89, 79);
+																									  panelMesa.add(btnMesa3);
+																									  panelMesa.setVisible(false);
+																									  
+																									   btnMesa4 = new JButton("");
+																									   btnMesa4.setBounds(404, 248, 89, 79);
+																									   panelMesa.add(btnMesa4);
+																									   panelMesa.setVisible(false);
+																									   
+																									    btnMesa5 = new JButton("");
+																									    btnMesa5.addActionListener(new ActionListener() {
+																									    	public void actionPerformed(ActionEvent e) {
+																									    	}
+																									    });
+																									    btnMesa5.setBounds(246, 370, 89, 79);
+																									    panelMesa.add(btnMesa5);
+																									    panelMesa.setVisible(false);
+																									    
+																									     btnMesa6 = new JButton("");
+																									     btnMesa6.setBounds(404, 370, 89, 79);
+																									     panelMesa.add(btnMesa6);
+																									     panelMesa.setVisible(false);
+																									     
+																									     lblName_1 = new JLabel("CoffeSwtich");
+																									     lblName_1.setFont(new Font("Rage Italic", Font.PLAIN, 60));
+																									     lblName_1.setBounds(117, 11, 425, 76);
+																									     panelMesa.add(lblName_1);
+																									     panelMesa.setVisible(false);
+																									     
+																									     btnAtras = new JButton("");
+																									     btnAtras.setBackground(new Color(255, 0, 0));
+																									     btnAtras.addActionListener(new ActionListener() {
+																									     	public void actionPerformed(ActionEvent e) {
+																									     	}
+																									     });
+																									     btnAtras.setBounds(757, 0, 77, 77);
+																									     panelMesa.add(btnAtras);
+																									     
+																									     lblHora1 = new JLabel("");
+																									     lblHora1.setFont(new Font("Rage Italic", Font.PLAIN, 60));
+																									     lblHora1.setBounds(577, 153, 234, 50);
+																									     panelMesa.add(lblHora1);
+																									     
+																									      lblestadomesa1 = new JLabel("Libre");
+																									      lblestadomesa1.setForeground(new Color(0, 64, 0));
+																									     lblestadomesa1.setHorizontalAlignment(SwingConstants.CENTER);
+																									     lblestadomesa1.setFont(new Font("Rage Italic", Font.PLAIN, 25));
+																									     lblestadomesa1.setBounds(246, 71, 89, 76);
+																									     panelMesa.add(lblestadomesa1);
+																									     
+																									      lblestadomesa2 = new JLabel("Libre");
+																									      lblestadomesa2.setForeground(new Color(0, 64, 0));
+																									     lblestadomesa2.setHorizontalAlignment(SwingConstants.CENTER);
+																									     lblestadomesa2.setFont(new Font("Rage Italic", Font.PLAIN, 25));
+																									     lblestadomesa2.setBounds(404, 73, 89, 76);
+																									     panelMesa.add(lblestadomesa2);
+																									     
+																									      lblestadomesa3 = new JLabel("Libre");
+																									      lblestadomesa3.setForeground(new Color(0, 64, 0));
+																									     lblestadomesa3.setHorizontalAlignment(SwingConstants.CENTER);
+																									     lblestadomesa3.setFont(new Font("Rage Italic", Font.PLAIN, 25));
+																									     lblestadomesa3.setBounds(246, 190, 89, 76);
+																									     panelMesa.add(lblestadomesa3);
+																									     
+																									      lblestadomesa4 = new JLabel("Libre");
+																									      lblestadomesa4.setForeground(new Color(0, 64, 0));
+																									     lblestadomesa4.setHorizontalAlignment(SwingConstants.CENTER);
+																									     lblestadomesa4.setFont(new Font("Rage Italic", Font.PLAIN, 25));
+																									     lblestadomesa4.setBounds(404, 189, 89, 76);
+																									     panelMesa.add(lblestadomesa4);
+																									     
+																									      lblestadomesa6 = new JLabel("Libre");
+																									      lblestadomesa6.setForeground(new Color(0, 64, 0));
+																									     lblestadomesa6.setHorizontalAlignment(SwingConstants.CENTER);
+																									     lblestadomesa6.setFont(new Font("Rage Italic", Font.PLAIN, 25));
+																									     lblestadomesa6.setBounds(404, 311, 94, 76);
+																									     panelMesa.add(lblestadomesa6);
+																									     
+																									     lblFondoMesa = new JLabel("");
+																									     lblFondoMesa.setBounds(0, 0, 855, 581);
+																									     panelMesa.add(lblFondoMesa);
+																									     panelMesa.setVisible(false);
 																							
 																							
 																							
@@ -641,83 +767,6 @@ public class InicioSesion extends JFrame {
 																		lblFondoPanelInicio = new JLabel("");
 																		lblFondoPanelInicio.setBounds(0, 0, 834, 609);
 																		panelnicio.add(lblFondoPanelInicio);
-																		
-																		panelMesa = new JPanel();
-																		panelMesa.setBackground(new Color(255, 255, 128));
-																		panelMesa.setBounds(0, 0, 834, 553);
-																		contentPane.add(panelMesa);
-																		panelMesa.setLayout(null);
-																		
-																		btnMesa1 = new JButton("");
-																		btnMesa1.setForeground(Color.BLACK);
-																		
-																				
-																				btnInventarioComida = new JButton("Inventario Comida");
-																				btnInventarioComida.setBackground(new Color(128, 255, 128));
-																				btnInventarioComida.setBounds(577, 261, 234, 121);
-																				panelMesa.add(btnInventarioComida);
-																				btnMesa1.setBounds(246, 124, 89, 79);
-																				panelMesa.add(btnMesa1);
-																				panelMesa.setVisible(false);
-																				
-																				
-					        
-																				 btnMesa2 = new JButton("");
-																				 btnMesa2.addActionListener(new ActionListener() {
-																				 	public void actionPerformed(ActionEvent e) {
-																				 	}
-																				 });
-																				 btnMesa2.setBounds(404, 124, 89, 79);
-																				 panelMesa.add(btnMesa2);
-																				 
-																				  btnMesa3 = new JButton("");
-																				  btnMesa3.setBounds(246, 214, 89, 79);
-																				  panelMesa.add(btnMesa3);
-																				  panelMesa.setVisible(false);
-																				  
-																				   btnMesa4 = new JButton("");
-																				   btnMesa4.setBounds(404, 214, 89, 79);
-																				   panelMesa.add(btnMesa4);
-																				   panelMesa.setVisible(false);
-																				   
-																				    btnMesa5 = new JButton("");
-																				    btnMesa5.addActionListener(new ActionListener() {
-																				    	public void actionPerformed(ActionEvent e) {
-																				    	}
-																				    });
-																				    btnMesa5.setBounds(246, 303, 89, 79);
-																				    panelMesa.add(btnMesa5);
-																				    panelMesa.setVisible(false);
-																				    
-																				     btnMesa6 = new JButton("");
-																				     btnMesa6.setBounds(404, 303, 89, 79);
-																				     panelMesa.add(btnMesa6);
-																				     panelMesa.setVisible(false);
-																				     
-																				     lblName_1 = new JLabel("CoffeSwtich");
-																				     lblName_1.setFont(new Font("Rage Italic", Font.PLAIN, 60));
-																				     lblName_1.setBounds(117, 11, 425, 76);
-																				     panelMesa.add(lblName_1);
-																				     panelMesa.setVisible(false);
-																				     
-																				     btnAtras = new JButton("");
-																				     btnAtras.setBackground(new Color(255, 0, 0));
-																				     btnAtras.addActionListener(new ActionListener() {
-																				     	public void actionPerformed(ActionEvent e) {
-																				     	}
-																				     });
-																				     btnAtras.setBounds(757, 0, 77, 77);
-																				     panelMesa.add(btnAtras);
-																				     
-																				     lblHora1 = new JLabel("");
-																				     lblHora1.setFont(new Font("Rage Italic", Font.PLAIN, 60));
-																				     lblHora1.setBounds(577, 153, 234, 50);
-																				     panelMesa.add(lblHora1);
-																				     
-																				     lblFondoMesa = new JLabel("");
-																				     lblFondoMesa.setBounds(0, 0, 855, 581);
-																				     panelMesa.add(lblFondoMesa);
-																				     panelMesa.setVisible(false);
 	}
 
 	public void lblTextError() {

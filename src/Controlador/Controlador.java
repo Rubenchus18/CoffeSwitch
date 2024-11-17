@@ -475,21 +475,34 @@ public class Controlador implements ActionListener{
 	    switch (mesaNumero) {
 	        case 1:
 	            agregarProducto(mesa1, producto, precio, button);
+	            this.vista.lblestadomesa1.setText("Ocupado"); 
+	            this.vista.lblestadomesa1.setForeground(Color.red); 
 	            break;
 	        case 2:
 	            agregarProducto(mesa2, producto, precio, button);
+	            this.vista.lblestadomesa2.setText("Ocupado");
+	            this.vista.lblestadomesa2.setForeground(Color.red); 
 	            break;
 	        case 3:
 	            agregarProducto(mesa3, producto, precio, button);
+	            this.vista.lblestadomesa3.setText("Ocupado");
+	            this.vista.lblestadomesa3.setForeground(Color.red); 
 	            break;
 	        case 4:
 	            agregarProducto(mesa4, producto, precio, button);
+	            this.vista.lblestadomesa4.setText("Ocupado");
+	            this.vista.lblestadomesa4.setForeground(Color.red); 
 	            break;
 	        case 5:
 	            agregarProducto(mesa5, producto, precio, button);
+	            this.vista.lblestadomesa5.setText("Ocupado");
+	            this.vista.lblestadomesa5.setForeground(Color.red); 
 	            break;
 	        case 6:
 	            agregarProducto(mesa6, producto, precio, button);
+	            this.vista.lblestadomesa6.setText("Ocupado");
+	            this.vista.lblestadomesa6.setForeground(Color.red); 
+
 	            break;
 	        default:
 	           
@@ -502,7 +515,7 @@ public class Controlador implements ActionListener{
 	    
 	    switch (mesaNumero) {
 	        case 1:
-	            eliminarProducto(mesa1, producto, precio, button);
+	            eliminarProducto(mesa1, producto, precio, button);  
 	            break;
 	        case 2:
 	            eliminarProducto(mesa2, producto, precio, button);
@@ -576,28 +589,40 @@ public class Controlador implements ActionListener{
 
 		    actualizarModeloDeLista(mesa);
 		}
-	private Double pagarPorMesa(DefaultListModel<String> modelo, JList<String> list) {
+	public  Double pagarPorMesa(DefaultListModel<String> modelo, JList<String> list) {
 	    String mesaNombre = this.vista.lblnombremesaBebida.getText();
 	    Mesa mesa = null;
 
 	    switch (mesaNombre) {
 	        case "Mesa 1":
 	            mesa = mesa1;
+	            this.vista.lblestadomesa1.setText("Libre");
+	            this.vista.lblestadomesa1.setForeground(new Color(0, 64, 0));
 	            break;
 	        case "Mesa 2":
 	            mesa = mesa2;
+	            this.vista.lblestadomesa2.setText("Libre");
+	            this.vista.lblestadomesa2.setForeground(new Color(0, 64, 0));
 	            break;
 	        case "Mesa 3":
 	            mesa = mesa3;
+	            this.vista.lblestadomesa3.setText("Libre");
+	            this.vista.lblestadomesa3.setForeground(new Color(0, 64, 0));
 	            break;
 	        case "Mesa 4":
 	            mesa = mesa4;
+	            this.vista.lblestadomesa4.setText("Libre");
+	            this.vista.lblestadomesa4.setForeground(new Color(0, 64, 0));
 	            break;
 	        case "Mesa 5":
 	            mesa = mesa5;
+	            this.vista.lblestadomesa5.setText("Libre");
+	            this.vista.lblestadomesa5.setForeground(new Color(0, 64, 0));
 	            break;
 	        case "Mesa 6":
 	            mesa = mesa6;
+	            this.vista.lblestadomesa6.setText("Libre");
+	            this.vista.lblestadomesa6.setForeground(new Color(0, 64, 0));
 	            break;
 	        default:
 	        break;
