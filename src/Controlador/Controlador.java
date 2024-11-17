@@ -293,6 +293,7 @@ public class Controlador implements ActionListener{
 		if(e.getSource()==this.vista.btnAtras){
 			this.vista.panelnicio.setVisible(true);
 			this.vista.panelMesa.setVisible(false);
+			this.vista.lblFalloInicioSesion.setText("");
 		}
 		//Boton volver atras mesas panel comida
 		if(e.getSource()==this.vista.btnVueltasMesa) {
