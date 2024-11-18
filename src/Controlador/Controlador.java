@@ -102,6 +102,8 @@ public class Controlador implements ActionListener{
 		this.vista.btnEliminarInventario.addActionListener(this);
 		this.vista.btnVolverMesas.addActionListener(this);
 		this.vista.comboBoxNombreProducto.addActionListener(this);
+		this.vista.btnPropinapanelcomida.addActionListener(this);
+		this.vista.btnPropinapanelbebida.addActionListener(this);
 		ponerImagen();
 		hora(vista.lblHora);
 		hora(vista.lblHora1);
@@ -404,9 +406,9 @@ public class Controlador implements ActionListener{
 	}
 	public List rellenar(Personal empleados) {
 		List<Personal>empleados1=new ArrayList<>();
-		empleados1.add(new Personal("Ruben","1"));
-		empleados1.add(new Personal("Fran","12"));	
-		empleados1.add(new Personal("Luis","hola"));
+		empleados1.add(new Personal("Ruben","1",0));
+		empleados1.add(new Personal("Fran","12",0));	
+		empleados1.add(new Personal("Luis","hola",0));
 		
 		return empleados1;
 	}
