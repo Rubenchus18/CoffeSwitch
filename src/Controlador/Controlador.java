@@ -102,8 +102,13 @@ public class Controlador implements ActionListener{
 		this.vista.btnEliminarInventario.addActionListener(this);
 		this.vista.btnVolverMesas.addActionListener(this);
 		this.vista.comboBoxNombreProducto.addActionListener(this);
+		this.vista.comboBoxEmpleados.addActionListener(this);
 		this.vista.btnPropinapanelcomida.addActionListener(this);
 		this.vista.btnPropinapanelbebida.addActionListener(this);
+		this.vista.btnAñadirPropina.addActionListener(this);
+		this.vista.btnVerPropina.addActionListener(this);
+		this.vista.btnVolveraMesasPanelComidad.addActionListener(this);
+		this.vista.btnVolverMesasPropina.addActionListener(this);
 		ponerImagen();
 		hora(vista.lblHora);
 		hora(vista.lblHora1);
@@ -112,7 +117,9 @@ public class Controlador implements ActionListener{
 		List<Producto>productos=new ArrayList<Producto>();
 		ArrayList<String>mesas=new ArrayList<String>();
 		HashMap<String,Integer>contador=new HashMap<String,Integer>();
-		agregarcombobox(productos);
+		agregarcombobox();
+		agregarcomboxempleado();
+		agregarcombozempleadoproprina();
 		
 	}
 	@Override
@@ -363,12 +370,48 @@ public class Controlador implements ActionListener{
 			   this.vista.panelMesa.setVisible(true);
 			   
 		   }
-		  
-		      
-		
-}	
-	
+		  //Boton de propina volver
+		    if(e.getSource()==this.vista.btnPropinapanelcomida) {
+		    	this.vista.panelComida.setVisible(false);
+				   this.vista.panelPropinas.setVisible(true);
+		    }
+		    //Boton panel de bebida a propina
+		    if(e.getSource()==this.vista.btnPropinapanelbebida) {
+		    	this.vista.panelBebida.setVisible(false);
+				   this.vista.panelPropinas.setVisible(true);
+		    }
+		    //Boton de propinas a mesa
+		   if(e.getSource()==this.vista.btnVolveraMesasPanelComidad) {
+			   this.vista.panelPropinas.setVisible(false);
+			   this.vista.panelMesa.setVisible(true);
+		   }
+		   //Boton añadir propina
+		   if (e.getSource() == this.vista.btnAñadirPropina) {
+			   añadirpropina();
+		    }
+		   //Boton de mesa a propina
+		    if(e.getSource()==this.vista.btnVerPropina) {
+		    	this.vista.panelPropinasEmpleados.setVisible(true);
+		    	this.vista.panelMesa.setVisible(false);
+		    }
+		    //Boton para volver a mesa
+		    if(e.getSource()==this.vista.btnVolverMesasPropina) {
+		    	this.vista.panelPropinasEmpleados.setVisible(false);
+		    	this.vista.panelMesa.setVisible(true);
+		    }
+		    //Boton combobox empleado
+		    if (e.getSource() == this.vista.comboBoxEmpleados) {
+		        String empleadoSeleccionado = (String) this.vista.comboBoxEmpleados.getSelectedItem();
+				for (Personal empleado : totalempleados) {
+		            if (empleado.getNombre().equalsIgnoreCase(empleadoSeleccionado)) {
+		                double cantidadPropina = empleado.getPropina();
+		                this.vista.lblTotalPropina.setText(String.valueOf(cantidadPropina)+"€");
+		            }
+		        }
+		    }
+		    
 
+}	
 
 	
 //Metodos
@@ -403,18 +446,23 @@ public class Controlador implements ActionListener{
 		vista.lblFondoMesa.setIcon(fotoEscalar(this.vista.lblFondoMesa,"imagenes/fondo.png"));
 		vista.lbTextoComandaBebida.setIcon(fotoEscalar(this.vista.lbTextoComandaBebida,"imagenes/fotocomanda.png"));
 		vista.lblIamgenComandaComida.setIcon(fotoEscalar(this.vista.lblIamgenComandaComida,"imagenes/fotocomanda.png"));
+		vista.lblFondopanelPropina.setIcon(fotoEscalar(this.vista.lblFondopanelPropina,"imagenes/fondo.png"));
+		vista.lblFondopanel.setIcon(fotoEscalar(this.vista.lblFondopanel,"imagenes/fondo.png"));
+		vista.lblIconoMoneda.setIcon(fotoEscalar(this.vista.lblIconoMoneda,"imagenes/moneda.png"));
 	}
 	public List rellenar(Personal empleados) {
 		List<Personal>empleados1=new ArrayList<>();
-		empleados1.add(new Personal("Ruben","1",0));
-		empleados1.add(new Personal("Fran","12",0));	
-		empleados1.add(new Personal("Luis","hola",0));
+		empleados1.add(new Personal("Ruben","1",0.0));
+		empleados1.add(new Personal("Fran","12",0.0));	
+		empleados1.add(new Personal("Luis","hola",0.0));
 		
 		return empleados1;
 	}
 	public void agregarNuevoUsuario(String nombre, String contraseña) {
-		 Personal nuevoEmpleado = new Personal(nombre, contraseña);
+		 Personal nuevoEmpleado = new Personal(nombre, contraseña, 0.0);
 		 totalempleados.add(nuevoEmpleado);
+		 this.vista.comboBoxEmpleados.addItem(nombre);
+		 this.vista.comboBoxNombreCamarero.addItem(nombre);
 	}
 	public List rellenarproducto(Producto inventario,List<Producto>productos) {
 		productos.add(new Producto("Tostadas",1,1.50));
@@ -451,7 +499,7 @@ public class Controlador implements ActionListener{
         String horaActual = formatoHora.format(new Date());
         label.setText(horaActual);
 	}
-	public void agregarcombobox(List<Producto>productos) {
+	public void agregarcombobox() {
 		this.vista.comboBoxNombreProducto.addItem("Tostadas");
 		this.vista.comboBoxNombreProducto.addItem("Avena");
 		this.vista.comboBoxNombreProducto.addItem("Cookie");
@@ -469,8 +517,16 @@ public class Controlador implements ActionListener{
 		this.vista.comboBoxNombreProducto.addItem("Cafe Largo");
 		this.vista.comboBoxNombreProducto.addItem("Zumo");
 }
-
-
+	public void agregarcomboxempleado() {
+		this.vista.comboBoxEmpleados.addItem("Ruben");
+		this.vista.comboBoxEmpleados.addItem("Fran");
+		this.vista.comboBoxEmpleados.addItem("Luis");
+	}
+	public void agregarcombozempleadoproprina() {
+		this.vista.comboBoxNombreCamarero.addItem("Ruben");
+		this.vista.comboBoxNombreCamarero.addItem("Fran");
+		this.vista.comboBoxNombreCamarero.addItem("Luis");
+	}
 	private void agregarProductoPorMesa(String producto, double precio, JButton button) {
 	    String mesaNombre = this.vista.lblnombremesaBebida.getText();
 	    int mesaNumero = Integer.parseInt(mesaNombre.split(" ")[1]);
@@ -786,5 +842,23 @@ public class Controlador implements ActionListener{
  	   
  	    this.vista.textFieldCantidad.setText("");
 	}
-
+	public void añadirpropina() {
+		 String nombreCamarero = (String) this.vista.comboBoxNombreCamarero.getSelectedItem(); 
+	        Double cantidadAAgregar=Double.parseDouble(this.vista.textFieldCantidadPropina.getText());
+	        if (cantidadAAgregar >= 0) {
+	            for (Personal empleado : totalempleados) {
+	                if (empleado.getNombre().equalsIgnoreCase(nombreCamarero)) {
+	                    empleado.setPropina(empleado.getPropina() + cantidadAAgregar); 
+	                   this.vista.panelPropinas.setVisible(false);
+	                   this.vista.panelMesa.setVisible(true);
+	                   this.vista.lblTotalPropina.setText(String.valueOf(empleado.getPropina())+"€");
+	                   this.vista.textFieldCantidadPropina.setText("");
+	                   return; 
+	                }
+	            }
+	        }else {
+	        	this.vista.panelPropinas.setVisible(false);
+                this.vista.panelMesa.setVisible(true);
+	        }
+	}
 }

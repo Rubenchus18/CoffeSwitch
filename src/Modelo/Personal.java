@@ -3,18 +3,14 @@ package Modelo;
 public class Personal {
 	private String nombre;
 	private String contraseña;
-	private int propina;
-	public Personal(String nombre, String contraseña, int propina) {
+	private Double propina;
+	public Personal(String nombre, String contraseña, Double propina) {
 		super();
 		this.nombre = nombre;
 		this.contraseña = contraseña;
 		this.propina = propina;
 	}
-	public Personal(String nombre, String contraseña) {
-		super();
-		this.nombre = nombre;
-		this.contraseña = contraseña;
-	}
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -27,10 +23,10 @@ public class Personal {
 	public void setContraseña(String contraseña) {
 		this.contraseña = contraseña;
 	}
-	public int getPropina() {
+	public Double getPropina() {
 		return propina;
 	}
-	public void setPropina(int propina) {
+	public void setPropina(Double propina) {
 		this.propina = propina;
 	}
 	@Override
