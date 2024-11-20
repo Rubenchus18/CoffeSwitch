@@ -192,6 +192,80 @@ public class InicioSesion extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 																											
+																											panelnvetarioComida = new JPanel();
+																											panelnvetarioComida.setBounds(0, 0, 834, 553);
+																											contentPane.add(panelnvetarioComida);
+																											panelnvetarioComida.setLayout(null);
+																											panelnvetarioComida.setVisible(false);
+																											
+																											lblFalloInventario = new JLabel("");
+																											lblFalloInventario.setForeground(Color.RED);
+																											lblFalloInventario.setFont(new Font("Rage Italic", Font.PLAIN, 40));
+																											lblFalloInventario.setBounds(151, 380, 359, 76);
+																											panelnvetarioComida.add(lblFalloInventario);
+																											
+																											lblCantidadActual_1 = new JLabel("");
+																											lblCantidadActual_1.setFont(new Font("Rage Italic", Font.PLAIN, 54));
+																											lblCantidadActual_1.setBounds(609, 177, 580, 76);
+																											panelnvetarioComida.add(lblCantidadActual_1);
+																											
+																											lblCantidadActual = new JLabel("Total del Producto");
+																											lblCantidadActual.setFont(new Font("Rage Italic", Font.PLAIN, 41));
+																											lblCantidadActual.setBounds(554, 120, 359, 76);
+																											panelnvetarioComida.add(lblCantidadActual);
+																											lblNewLabel_18 = new JLabel("Nombre Producto");
+																											lblNewLabel_18.setFont(new Font("Rage Italic", Font.PLAIN, 41));
+																											lblNewLabel_18.setBounds(151, 120, 380, 76);
+																											panelnvetarioComida.add(lblNewLabel_18);
+																											
+																											comboBoxNombreProducto = new JComboBox();
+																											comboBoxNombreProducto.setBounds(161, 195, 326, 29);
+																											panelnvetarioComida.add(comboBoxNombreProducto);
+																											
+																											lblNewLabel_20 = new JLabel("Introduzca cantidad");
+																											lblNewLabel_20.setFont(new Font("Rage Italic", Font.PLAIN, 41));
+																											lblNewLabel_20.setBounds(149, 263, 457, 76);
+																											panelnvetarioComida.add(lblNewLabel_20);
+																											
+																											textFieldCantidad = new JTextField();
+																											textFieldCantidad.setBounds(161, 341, 326, 19);
+																											panelnvetarioComida.add(textFieldCantidad);
+																											textFieldCantidad.setColumns(10);
+																											
+																											btnAñadirInventario = new JButton("Añadir");
+																											btnAñadirInventario.setBackground(new Color(128, 255, 128));
+																											btnAñadirInventario.setBounds(575, 401, 249, 21);
+																											panelnvetarioComida.add(btnAñadirInventario);
+																											
+																											btnEliminarInventario = new JButton("Eliminar");
+																											btnEliminarInventario.setBackground(new Color(128, 255, 128));
+																											btnEliminarInventario.setBounds(575, 432, 249, 21);
+																											panelnvetarioComida.add(btnEliminarInventario);
+																											
+																											 btnVolverMesas = new JButton("Mesas");
+																											 btnVolverMesas.addActionListener(new ActionListener() {
+																											 	public void actionPerformed(ActionEvent e) {
+																											 	}
+																											 });
+																											 btnVolverMesas.setBackground(new Color(128, 255, 128));
+																											 btnVolverMesas.setBounds(726, 0, 108, 44);
+																											 panelnvetarioComida.add(btnVolverMesas);
+																											 
+																											 JLabel lblError = new JLabel("");
+																											 lblError.setFont(new Font("Rage Italic", Font.PLAIN, 46));
+																											 lblError.setHorizontalAlignment(SwingConstants.CENTER);
+																											 lblError.setBounds(161, 469, 523, 73);
+																											 panelnvetarioComida.add(lblError);
+																											 
+																											  lblFondoInventario = new JLabel("");
+																											  lblFondoInventario.setBounds(0, 0, 834, 542);
+																											  panelnvetarioComida.add(lblFondoInventario);
+																											  
+																											  JLabel lblName_4_1 = new JLabel("CoffeSwtich");
+																											  lblName_4_1.setFont(new Font("Rage Italic", Font.PLAIN, 60));
+																											  lblName_4_1.setBounds(106, 15, 425, 76);
+																											  panelnvetarioComida.add(lblName_4_1);
+																											
 																											panelPropinasEmpleados = new JPanel();
 																											panelPropinasEmpleados.setBounds(0, 0, 834, 546);
 																											contentPane.add(panelPropinasEmpleados);
@@ -660,75 +734,6 @@ public class InicioSesion extends JFrame {
 																										lblFondopanelPropina.setBounds(0, 0, 834, 543);
 																										panelPropinas.add(lblFondopanelPropina);
 																										panelPropinas.setVisible(false);
-																										
-																										panelnvetarioComida = new JPanel();
-																										panelnvetarioComida.setBounds(0, 0, 834, 553);
-																										contentPane.add(panelnvetarioComida);
-																										panelnvetarioComida.setLayout(null);
-																										panelnvetarioComida.setVisible(false);
-																										
-																										lblFalloInventario = new JLabel("");
-																										lblFalloInventario.setForeground(Color.RED);
-																										lblFalloInventario.setFont(new Font("Rage Italic", Font.PLAIN, 40));
-																										lblFalloInventario.setBounds(151, 380, 359, 76);
-																										panelnvetarioComida.add(lblFalloInventario);
-																										
-																										lblCantidadActual_1 = new JLabel("");
-																										lblCantidadActual_1.setFont(new Font("Rage Italic", Font.PLAIN, 54));
-																										lblCantidadActual_1.setBounds(609, 177, 580, 76);
-																										panelnvetarioComida.add(lblCantidadActual_1);
-																										
-																										lblCantidadActual = new JLabel("Total del Producto");
-																										lblCantidadActual.setFont(new Font("Rage Italic", Font.PLAIN, 41));
-																										lblCantidadActual.setBounds(554, 120, 359, 76);
-																										panelnvetarioComida.add(lblCantidadActual);
-																										lblNewLabel_18 = new JLabel("Nombre Producto");
-																										lblNewLabel_18.setFont(new Font("Rage Italic", Font.PLAIN, 41));
-																										lblNewLabel_18.setBounds(151, 120, 380, 76);
-																										panelnvetarioComida.add(lblNewLabel_18);
-																										
-																										comboBoxNombreProducto = new JComboBox();
-																										comboBoxNombreProducto.setBounds(161, 195, 326, 29);
-																										panelnvetarioComida.add(comboBoxNombreProducto);
-																										
-																										lblNewLabel_20 = new JLabel("Introduzca cantidad");
-																										lblNewLabel_20.setFont(new Font("Rage Italic", Font.PLAIN, 41));
-																										lblNewLabel_20.setBounds(149, 263, 457, 76);
-																										panelnvetarioComida.add(lblNewLabel_20);
-																										
-																										textFieldCantidad = new JTextField();
-																										textFieldCantidad.setBounds(161, 341, 326, 19);
-																										panelnvetarioComida.add(textFieldCantidad);
-																										textFieldCantidad.setColumns(10);
-																										
-																										btnAñadirInventario = new JButton("Añadir");
-																										btnAñadirInventario.setBackground(new Color(128, 255, 128));
-																										btnAñadirInventario.setBounds(575, 401, 249, 21);
-																										panelnvetarioComida.add(btnAñadirInventario);
-																										
-																										btnEliminarInventario = new JButton("Eliminar");
-																										btnEliminarInventario.setBackground(new Color(128, 255, 128));
-																										btnEliminarInventario.setBounds(575, 432, 249, 21);
-																										panelnvetarioComida.add(btnEliminarInventario);
-																										
-																										 btnVolverMesas = new JButton("Mesas");
-																										 btnVolverMesas.addActionListener(new ActionListener() {
-																										 	public void actionPerformed(ActionEvent e) {
-																										 	}
-																										 });
-																										 btnVolverMesas.setBackground(new Color(128, 255, 128));
-																										 btnVolverMesas.setBounds(726, 0, 108, 44);
-																										 panelnvetarioComida.add(btnVolverMesas);
-																										 
-																										 JLabel lblError = new JLabel("");
-																										 lblError.setFont(new Font("Rage Italic", Font.PLAIN, 46));
-																										 lblError.setHorizontalAlignment(SwingConstants.CENTER);
-																										 lblError.setBounds(161, 469, 523, 73);
-																										 panelnvetarioComida.add(lblError);
-																										 
-																										  lblFondoInventario = new JLabel("");
-																										  lblFondoInventario.setBounds(0, 0, 834, 542);
-																										  panelnvetarioComida.add(lblFondoInventario);
 																									panelnicio = new JPanel();
 																									panelnicio.setBackground(new Color(255, 255, 128));
 																									panelnicio.setBounds(0, -11, 834, 564);
