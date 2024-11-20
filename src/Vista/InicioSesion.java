@@ -160,6 +160,7 @@ public class InicioSesion extends JFrame {
 	public JLabel lblFondopanel;
 	public JLabel lblName_8;
 	public JLabel lblIconoMoneda;
+	public JLabel lblFotoCamarero;
 	
 	/**
 	 * Launch the application.
@@ -190,6 +191,239 @@ public class InicioSesion extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+																											
+																											panelPropinasEmpleados = new JPanel();
+																											panelPropinasEmpleados.setBounds(0, 0, 834, 546);
+																											contentPane.add(panelPropinasEmpleados);
+																											panelPropinasEmpleados.setLayout(null);
+																											
+																											lblIconoMoneda = new JLabel("");
+																											lblIconoMoneda.setBounds(141, 234, 90, 57);
+																											panelPropinasEmpleados.add(lblIconoMoneda);
+																											btnVolverMesasPropina = new JButton("Mesas");
+																											
+																											btnVolverMesasPropina.setBackground(new Color(0, 255, 128));
+																											btnVolverMesasPropina.setBounds(726, 0, 108, 44);
+																											panelPropinasEmpleados.add(btnVolverMesasPropina);
+																											
+																											comboBoxEmpleados = new JComboBox();
+																											comboBoxEmpleados.setBounds(241, 168, 281, 21);
+																											panelPropinasEmpleados.add(comboBoxEmpleados);
+																											panelPropinasEmpleados.setVisible(false);
+																											lblName_4 = new JLabel("CoffeSwtich");
+																											lblName_4.setFont(new Font("Rage Italic", Font.PLAIN, 60));
+																											lblName_4.setBounds(141, 11, 425, 76);
+																											panelPropinasEmpleados.add(lblName_4);
+																											panelPropinasEmpleados.setVisible(false);
+																											lblName_5 = new JLabel("Nombre del camarero");
+																											lblName_5.setFont(new Font("Rage Italic", Font.PLAIN, 40));
+																											lblName_5.setBounds(241, 82, 425, 76);
+																											panelPropinasEmpleados.add(lblName_5);
+																											panelPropinasEmpleados.setVisible(false);
+																											lblName_6 = new JLabel("Propina Total");
+																											lblName_6.setFont(new Font("Rage Italic", Font.PLAIN, 40));
+																											lblName_6.setBounds(241, 220, 425, 76);
+																											panelPropinasEmpleados.add(lblName_6);
+																											panelPropinasEmpleados.setVisible(false);
+																											lblTotalPropina = new JLabel("");
+																											lblTotalPropina.setFont(new Font("Rage Italic", Font.PLAIN, 50));
+																											lblTotalPropina.setBounds(241, 295, 425, 76);
+																											panelPropinasEmpleados.add(lblTotalPropina);
+																											panelPropinasEmpleados.setVisible(false);
+																											 
+																											 lblFotoCamarero = new JLabel("");
+																											 lblFotoCamarero.setBounds(590, 82, 244, 415);
+																											 panelPropinasEmpleados.add(lblFotoCamarero);
+																											
+																											 lblFondopanel = new JLabel("");
+																											 lblFondopanel.setBounds(0, 0, 834, 546);
+																											 panelPropinasEmpleados.add(lblFondopanel);
+																											 panelPropinasEmpleados.setVisible(false);
+																											
+																											
+																											
+																											panelBebida = new JPanel();
+																											panelBebida.setBackground(new Color(255, 255, 128));
+																											panelBebida.setBounds(0, 0, 834, 553);
+																											contentPane.add(panelBebida);
+																											panelBebida.setLayout(null);
+																											panelBebida.setVisible(false);
+																											
+																											 btnPropinapanelbebida = new JButton("Propina");
+																											 btnPropinapanelbebida.setFont(new Font("Tahoma", Font.BOLD, 10));
+																											 btnPropinapanelbebida.setBackground(new Color(128, 255, 128));
+																											 btnPropinapanelbebida.setBounds(706, 405, 75, 23);
+																											 panelBebida.add(btnPropinapanelbebida);
+																											 
+																											 lbTextoComandaBebida = new JLabel("");
+																											 lbTextoComandaBebida.setForeground(new Color(255, 128, 0));
+																											 lbTextoComandaBebida.setBackground(new Color(255, 128, 0));
+																											 lbTextoComandaBebida.setFont(new Font("Rage Italic", Font.PLAIN, 60));
+																											 lbTextoComandaBebida.setBounds(636, 10, 145, 76);
+																											 panelBebida.add(lbTextoComandaBebida);
+																											 
+																											 btnComida = new JButton("Comida");
+																											 btnComida.setBackground(new Color(128, 255, 128));
+																											 btnComida.setBounds(633, 480, 145, 23);
+																											 panelBebida.add(btnComida);
+																											 
+																											 lblPagarBebida = new JLabel("\r\n");
+																											 lblPagarBebida.setFont(new Font("Rage Italic", Font.PLAIN, 30));
+																											 lblPagarBebida.setHorizontalAlignment(SwingConstants.CENTER);
+																											 lblPagarBebida.setBounds(599, 439, 235, 31);
+																											 panelBebida.add(lblPagarBebida);
+																											 
+																											 btnPagarBebidas = new JButton("Pagar");
+																											 btnPagarBebidas.setBackground(new Color(128, 255, 128));
+																											 btnPagarBebidas.setBounds(636, 405, 68, 23);
+																											 panelBebida.add(btnPagarBebidas);
+																											 
+																											 lblnohaybebida = new JLabel("");
+																											 lblnohaybebida.setFont(new Font("Rage Italic", Font.PLAIN, 40));
+																											 lblnohaybebida.setBounds(134, 279, 425, 76);
+																											 panelBebida.add(lblnohaybebida);
+																											 
+																											 lblnombremesaBebida = new JLabel("");
+																											 lblnombremesaBebida.setFont(new Font("Rage Italic", Font.PLAIN, 60));
+																											 lblnombremesaBebida.setBounds(400, 10, 324, 76);
+																											 panelBebida.add(lblnombremesaBebida);
+																											 btnañadircafesolo = new JButton("Añadir");
+																											 btnañadircafesolo.setBackground(new Color(128, 255, 128));
+																											 btnañadircafesolo.setBounds(123, 229, 85, 21);
+																											 panelBebida.add(btnañadircafesolo);
+																											 
+																											 btnañadircortado = new JButton("Añadir");
+																											 btnañadircortado.setBackground(new Color(128, 255, 128));
+																											 btnañadircortado.addActionListener(new ActionListener() {
+																											 	public void actionPerformed(ActionEvent e) {
+																											 	}
+																											 });
+																											 btnañadircortado.setBounds(240, 229, 85, 21);
+																											 panelBebida.add(btnañadircortado);
+																											 
+																											 btnañadircaramel = new JButton("Añadir");
+																											 btnañadircaramel.setBackground(new Color(128, 255, 128));
+																											 btnañadircaramel.setBounds(356, 229, 85, 21);
+																											 panelBebida.add(btnañadircaramel);
+																											 
+																											 btnañadirfrapuchino = new JButton("Añadir");
+																											 btnañadirfrapuchino.setBackground(new Color(128, 255, 128));
+																											 btnañadirfrapuchino.setBounds(474, 229, 85, 21);
+																											 panelBebida.add(btnañadirfrapuchino);
+																											 
+																											 btnañadircolacao = new JButton("Añadir");
+																											 btnañadircolacao.setBackground(new Color(128, 255, 128));
+																											 btnañadircolacao.setBounds(123, 449, 85, 21);
+																											 panelBebida.add(btnañadircolacao);
+																											 
+																											 btnaladircafeconleche = new JButton("Añadir");
+																											 btnaladircafeconleche.setBackground(new Color(128, 255, 128));
+																											 btnaladircafeconleche.setBounds(240, 449, 85, 21);
+																											 panelBebida.add(btnaladircafeconleche);
+																											 
+																											 btnañadircafelargo = new JButton("Añadir");
+																											 btnañadircafelargo.setBackground(new Color(128, 255, 128));
+																											 btnañadircafelargo.setBounds(356, 449, 85, 21);
+																											 panelBebida.add(btnañadircafelargo);
+																											 
+																											 btnañadirzumo = new JButton("Añadir");
+																											 btnañadirzumo.setBackground(new Color(128, 255, 128));
+																											 btnañadirzumo.setBounds(474, 449, 85, 21);
+																											 panelBebida.add(btnañadirzumo);
+																											 
+																											 list_1 = new JList();
+																											 list_1.setBounds(636, 97, 145, 302);
+																											 panelBebida.add(list_1);
+																											 
+																											 lblNewLabel_2 = new JLabel("");
+																											 lblNewLabel_2.setBounds(123, 122, 85, 97);
+																											 panelBebida.add(lblNewLabel_2);
+																											 
+																											 lblNewLabel_4 = new JLabel("");
+																											 lblNewLabel_4.setBounds(123, 341, 85, 97);
+																											 panelBebida.add(lblNewLabel_4);
+																											 
+																											 lblNewLabel_3 = new JLabel("");
+																											 lblNewLabel_3.setBounds(240, 337, 85, 97);
+																											 panelBebida.add(lblNewLabel_3);
+																											 
+																											 lblNewLabel_5 = new JLabel("");
+																											 lblNewLabel_5.setBounds(356, 337, 85, 97);
+																											 panelBebida.add(lblNewLabel_5);
+																											 
+																											 lblNewLabel_6 = new JLabel("");
+																											 lblNewLabel_6.setBounds(474, 337, 85, 97);
+																											 panelBebida.add(lblNewLabel_6);
+																											 
+																											 lblNewLabel_7 = new JLabel("");
+																											 lblNewLabel_7.setBounds(474, 122, 85, 97);
+																											 panelBebida.add(lblNewLabel_7);
+																											 
+																											 lblNewLabel_8 = new JLabel("");
+																											 lblNewLabel_8.setBounds(356, 122, 85, 97);
+																											 panelBebida.add(lblNewLabel_8);
+																											 
+																											 lblNewLabel_9 = new JLabel("");
+																											 lblNewLabel_9.setBounds(240, 122, 85, 97);
+																											 panelBebida.add(lblNewLabel_9);
+																											 
+																											 lblName_2 = new JLabel("CoffeSwtich");
+																											 lblName_2.setFont(new Font("Rage Italic", Font.PLAIN, 60));
+																											 lblName_2.setBounds(134, 10, 425, 76);
+																											 panelBebida.add(lblName_2);
+																											 
+																											 btnVolverMesaBebida = new JButton("Mesas");
+																											 btnVolverMesaBebida.setBackground(new Color(128, 255, 128));
+																											 btnVolverMesaBebida.addActionListener(new ActionListener() {
+																											 	public void actionPerformed(ActionEvent e) {
+																											 	}
+																											 });
+																											 btnVolverMesaBebida.setBounds(0, 0, 89, 36);
+																											 panelBebida.add(btnVolverMesaBebida);
+																											 
+																											 btneliminarcafesolo = new JButton("Eliminar");
+																											 btneliminarcafesolo.setBackground(new Color(128, 255, 128));
+																											 btneliminarcafesolo.setBounds(123, 260, 85, 21);
+																											 panelBebida.add(btneliminarcafesolo);
+																											 
+																											 btneliminarcortado = new JButton("Eliminar");
+																											 btneliminarcortado.setBackground(new Color(128, 255, 128));
+																											 btneliminarcortado.setBounds(240, 259, 85, 21);
+																											 panelBebida.add(btneliminarcortado);
+																											 
+																											 btneliminarcaramel = new JButton("Eliminar");
+																											 btneliminarcaramel.setBackground(new Color(128, 255, 128));
+																											 btneliminarcaramel.setBounds(356, 260, 85, 21);
+																											 panelBebida.add(btneliminarcaramel);
+																											 
+																											 btneliminarfrapuchino = new JButton("Eliminar");
+																											 btneliminarfrapuchino.setBackground(new Color(128, 255, 128));
+																											 btneliminarfrapuchino.setBounds(474, 260, 85, 21);
+																											 panelBebida.add(btneliminarfrapuchino);
+																											 
+																											 btneliminarcolacao = new JButton("Eliminar");
+																											 btneliminarcolacao.setBackground(new Color(128, 255, 128));
+																											 btneliminarcolacao.setBounds(123, 481, 85, 21);
+																											 panelBebida.add(btneliminarcolacao);
+																											 
+																											 btneliminarcafeconleche = new JButton("Eliminar");
+																											 btneliminarcafeconleche.setBackground(new Color(128, 255, 128));
+																											 btneliminarcafeconleche.setBounds(240, 480, 85, 21);
+																											 panelBebida.add(btneliminarcafeconleche);
+																											 
+																											 btneliminarcafelargo = new JButton("Eliminar");
+																											 btneliminarcafelargo.setBackground(new Color(128, 255, 128));
+																											 btneliminarcafelargo.setBounds(356, 481, 85, 21);
+																											 panelBebida.add(btneliminarcafelargo);
+																											 
+																											 btneliminarrzumo = new JButton("Eliminar");
+																											 btneliminarrzumo.setBackground(new Color(128, 255, 128));
+																											 btneliminarrzumo.setBounds(473, 481, 85, 21);
+																											 panelBebida.add(btneliminarrzumo);
+																											 
+																											 lblFondo = new JLabel("");
+																											 lblFondo.setBounds(0, 0, 834, 568);
+																											 panelBebida.add(lblFondo);
 																										
 																											
 																											panelComida = new JPanel();
@@ -204,7 +438,7 @@ public class InicioSesion extends JFrame {
 																											
 																											
 																											 btnPropinapanelcomida = new JButton("Propina");
-																											 btnPropinapanelcomida.setFont(new Font("Tahoma", Font.PLAIN, 11));
+																											 btnPropinapanelcomida.setFont(new Font("Tahoma", Font.BOLD, 10));
 																											 
 																											 		btnPropinapanelcomida.setBackground(new Color(128, 255, 128));
 																											 		btnPropinapanelcomida.setBounds(706, 405, 75, 23);
@@ -371,191 +605,6 @@ public class InicioSesion extends JFrame {
 																											 		lblFondoComida = new JLabel("");
 																											 		lblFondoComida.setBounds(0, 0, 834, 587);
 																											 		panelComida.add(lblFondoComida);
-																										
-																										
-																										
-																										panelBebida = new JPanel();
-																										panelBebida.setBackground(new Color(255, 255, 128));
-																										panelBebida.setBounds(0, 0, 834, 553);
-																										contentPane.add(panelBebida);
-																										panelBebida.setLayout(null);
-																										panelBebida.setVisible(false);
-																										
-																										 btnPropinapanelbebida = new JButton("Propina");
-																										 btnPropinapanelbebida.setFont(new Font("Tahoma", Font.PLAIN, 11));
-																										 btnPropinapanelbebida.setBackground(new Color(128, 255, 128));
-																										 btnPropinapanelbebida.setBounds(706, 405, 75, 23);
-																										 panelBebida.add(btnPropinapanelbebida);
-																										 
-																										 lbTextoComandaBebida = new JLabel("");
-																										 lbTextoComandaBebida.setForeground(new Color(255, 128, 0));
-																										 lbTextoComandaBebida.setBackground(new Color(255, 128, 0));
-																										 lbTextoComandaBebida.setFont(new Font("Rage Italic", Font.PLAIN, 60));
-																										 lbTextoComandaBebida.setBounds(636, 10, 145, 76);
-																										 panelBebida.add(lbTextoComandaBebida);
-																										 
-																										 btnComida = new JButton("Comida");
-																										 btnComida.setBackground(new Color(128, 255, 128));
-																										 btnComida.setBounds(633, 480, 145, 23);
-																										 panelBebida.add(btnComida);
-																										 
-																										 lblPagarBebida = new JLabel("\r\n");
-																										 lblPagarBebida.setFont(new Font("Rage Italic", Font.PLAIN, 30));
-																										 lblPagarBebida.setHorizontalAlignment(SwingConstants.CENTER);
-																										 lblPagarBebida.setBounds(599, 439, 235, 31);
-																										 panelBebida.add(lblPagarBebida);
-																										 
-																										 btnPagarBebidas = new JButton("Pagar");
-																										 btnPagarBebidas.setBackground(new Color(128, 255, 128));
-																										 btnPagarBebidas.setBounds(636, 405, 68, 23);
-																										 panelBebida.add(btnPagarBebidas);
-																										 
-																										 lblnohaybebida = new JLabel("");
-																										 lblnohaybebida.setFont(new Font("Rage Italic", Font.PLAIN, 40));
-																										 lblnohaybebida.setBounds(134, 279, 425, 76);
-																										 panelBebida.add(lblnohaybebida);
-																										 
-																										 lblnombremesaBebida = new JLabel("");
-																										 lblnombremesaBebida.setFont(new Font("Rage Italic", Font.PLAIN, 60));
-																										 lblnombremesaBebida.setBounds(400, 10, 324, 76);
-																										 panelBebida.add(lblnombremesaBebida);
-																										 btnañadircafesolo = new JButton("Añadir");
-																										 btnañadircafesolo.setBackground(new Color(128, 255, 128));
-																										 btnañadircafesolo.setBounds(123, 229, 85, 21);
-																										 panelBebida.add(btnañadircafesolo);
-																										 
-																										 btnañadircortado = new JButton("Añadir");
-																										 btnañadircortado.setBackground(new Color(128, 255, 128));
-																										 btnañadircortado.addActionListener(new ActionListener() {
-																										 	public void actionPerformed(ActionEvent e) {
-																										 	}
-																										 });
-																										 btnañadircortado.setBounds(240, 229, 85, 21);
-																										 panelBebida.add(btnañadircortado);
-																										 
-																										 btnañadircaramel = new JButton("Añadir");
-																										 btnañadircaramel.setBackground(new Color(128, 255, 128));
-																										 btnañadircaramel.setBounds(356, 229, 85, 21);
-																										 panelBebida.add(btnañadircaramel);
-																										 
-																										 btnañadirfrapuchino = new JButton("Añadir");
-																										 btnañadirfrapuchino.setBackground(new Color(128, 255, 128));
-																										 btnañadirfrapuchino.setBounds(474, 229, 85, 21);
-																										 panelBebida.add(btnañadirfrapuchino);
-																										 
-																										 btnañadircolacao = new JButton("Añadir");
-																										 btnañadircolacao.setBackground(new Color(128, 255, 128));
-																										 btnañadircolacao.setBounds(123, 449, 85, 21);
-																										 panelBebida.add(btnañadircolacao);
-																										 
-																										 btnaladircafeconleche = new JButton("Añadir");
-																										 btnaladircafeconleche.setBackground(new Color(128, 255, 128));
-																										 btnaladircafeconleche.setBounds(240, 449, 85, 21);
-																										 panelBebida.add(btnaladircafeconleche);
-																										 
-																										 btnañadircafelargo = new JButton("Añadir");
-																										 btnañadircafelargo.setBackground(new Color(128, 255, 128));
-																										 btnañadircafelargo.setBounds(356, 449, 85, 21);
-																										 panelBebida.add(btnañadircafelargo);
-																										 
-																										 btnañadirzumo = new JButton("Añadir");
-																										 btnañadirzumo.setBackground(new Color(128, 255, 128));
-																										 btnañadirzumo.setBounds(474, 449, 85, 21);
-																										 panelBebida.add(btnañadirzumo);
-																										 
-																										 list_1 = new JList();
-																										 list_1.setBounds(636, 97, 145, 302);
-																										 panelBebida.add(list_1);
-																										 
-																										 lblNewLabel_2 = new JLabel("");
-																										 lblNewLabel_2.setBounds(123, 122, 85, 97);
-																										 panelBebida.add(lblNewLabel_2);
-																										 
-																										 lblNewLabel_4 = new JLabel("");
-																										 lblNewLabel_4.setBounds(123, 341, 85, 97);
-																										 panelBebida.add(lblNewLabel_4);
-																										 
-																										 lblNewLabel_3 = new JLabel("");
-																										 lblNewLabel_3.setBounds(240, 337, 85, 97);
-																										 panelBebida.add(lblNewLabel_3);
-																										 
-																										 lblNewLabel_5 = new JLabel("");
-																										 lblNewLabel_5.setBounds(356, 337, 85, 97);
-																										 panelBebida.add(lblNewLabel_5);
-																										 
-																										 lblNewLabel_6 = new JLabel("");
-																										 lblNewLabel_6.setBounds(474, 337, 85, 97);
-																										 panelBebida.add(lblNewLabel_6);
-																										 
-																										 lblNewLabel_7 = new JLabel("");
-																										 lblNewLabel_7.setBounds(474, 122, 85, 97);
-																										 panelBebida.add(lblNewLabel_7);
-																										 
-																										 lblNewLabel_8 = new JLabel("");
-																										 lblNewLabel_8.setBounds(356, 122, 85, 97);
-																										 panelBebida.add(lblNewLabel_8);
-																										 
-																										 lblNewLabel_9 = new JLabel("");
-																										 lblNewLabel_9.setBounds(240, 122, 85, 97);
-																										 panelBebida.add(lblNewLabel_9);
-																										 
-																										 lblName_2 = new JLabel("CoffeSwtich");
-																										 lblName_2.setFont(new Font("Rage Italic", Font.PLAIN, 60));
-																										 lblName_2.setBounds(134, 10, 425, 76);
-																										 panelBebida.add(lblName_2);
-																										 
-																										 btnVolverMesaBebida = new JButton("Mesas");
-																										 btnVolverMesaBebida.setBackground(new Color(128, 255, 128));
-																										 btnVolverMesaBebida.addActionListener(new ActionListener() {
-																										 	public void actionPerformed(ActionEvent e) {
-																										 	}
-																										 });
-																										 btnVolverMesaBebida.setBounds(0, 0, 89, 36);
-																										 panelBebida.add(btnVolverMesaBebida);
-																										 
-																										 btneliminarcafesolo = new JButton("Eliminar");
-																										 btneliminarcafesolo.setBackground(new Color(128, 255, 128));
-																										 btneliminarcafesolo.setBounds(123, 260, 85, 21);
-																										 panelBebida.add(btneliminarcafesolo);
-																										 
-																										 btneliminarcortado = new JButton("Eliminar");
-																										 btneliminarcortado.setBackground(new Color(128, 255, 128));
-																										 btneliminarcortado.setBounds(240, 259, 85, 21);
-																										 panelBebida.add(btneliminarcortado);
-																										 
-																										 btneliminarcaramel = new JButton("Eliminar");
-																										 btneliminarcaramel.setBackground(new Color(128, 255, 128));
-																										 btneliminarcaramel.setBounds(356, 260, 85, 21);
-																										 panelBebida.add(btneliminarcaramel);
-																										 
-																										 btneliminarfrapuchino = new JButton("Eliminar");
-																										 btneliminarfrapuchino.setBackground(new Color(128, 255, 128));
-																										 btneliminarfrapuchino.setBounds(474, 260, 85, 21);
-																										 panelBebida.add(btneliminarfrapuchino);
-																										 
-																										 btneliminarcolacao = new JButton("Eliminar");
-																										 btneliminarcolacao.setBackground(new Color(128, 255, 128));
-																										 btneliminarcolacao.setBounds(123, 481, 85, 21);
-																										 panelBebida.add(btneliminarcolacao);
-																										 
-																										 btneliminarcafeconleche = new JButton("Eliminar");
-																										 btneliminarcafeconleche.setBackground(new Color(128, 255, 128));
-																										 btneliminarcafeconleche.setBounds(240, 480, 85, 21);
-																										 panelBebida.add(btneliminarcafeconleche);
-																										 
-																										 btneliminarcafelargo = new JButton("Eliminar");
-																										 btneliminarcafelargo.setBackground(new Color(128, 255, 128));
-																										 btneliminarcafelargo.setBounds(356, 481, 85, 21);
-																										 panelBebida.add(btneliminarcafelargo);
-																										 
-																										 btneliminarrzumo = new JButton("Eliminar");
-																										 btneliminarrzumo.setBackground(new Color(128, 255, 128));
-																										 btneliminarrzumo.setBounds(473, 481, 85, 21);
-																										 panelBebida.add(btneliminarrzumo);
-																										 
-																										 lblFondo = new JLabel("");
-																										 lblFondo.setBounds(0, 0, 834, 568);
-																										 panelBebida.add(lblFondo);
 																										panelPropinas = new JPanel();
 																										panelPropinas.setBounds(0, 0, 834, 553);
 																										contentPane.add(panelPropinas);
@@ -611,50 +660,6 @@ public class InicioSesion extends JFrame {
 																										lblFondopanelPropina.setBounds(0, 0, 834, 543);
 																										panelPropinas.add(lblFondopanelPropina);
 																										panelPropinas.setVisible(false);
-																										
-																										panelPropinasEmpleados = new JPanel();
-																										panelPropinasEmpleados.setBounds(0, 0, 834, 546);
-																										contentPane.add(panelPropinasEmpleados);
-																										panelPropinasEmpleados.setLayout(null);
-																										
-																										lblIconoMoneda = new JLabel("");
-																										lblIconoMoneda.setBounds(141, 234, 90, 57);
-																										panelPropinasEmpleados.add(lblIconoMoneda);
-																										btnVolverMesasPropina = new JButton("Mesas");
-																										
-																										btnVolverMesasPropina.setBackground(new Color(0, 255, 128));
-																										btnVolverMesasPropina.setBounds(726, 0, 108, 44);
-																										panelPropinasEmpleados.add(btnVolverMesasPropina);
-																										
-																										comboBoxEmpleados = new JComboBox();
-																										comboBoxEmpleados.setBounds(241, 168, 281, 21);
-																										panelPropinasEmpleados.add(comboBoxEmpleados);
-																										panelPropinasEmpleados.setVisible(false);
-																										lblName_4 = new JLabel("CoffeSwtich");
-																										lblName_4.setFont(new Font("Rage Italic", Font.PLAIN, 60));
-																										lblName_4.setBounds(141, 11, 425, 76);
-																										panelPropinasEmpleados.add(lblName_4);
-																										panelPropinasEmpleados.setVisible(false);
-																										lblName_5 = new JLabel("Nombre del camarero");
-																										lblName_5.setFont(new Font("Rage Italic", Font.PLAIN, 40));
-																										lblName_5.setBounds(241, 82, 425, 76);
-																										panelPropinasEmpleados.add(lblName_5);
-																										panelPropinasEmpleados.setVisible(false);
-																										lblName_6 = new JLabel("Propina Total");
-																										lblName_6.setFont(new Font("Rage Italic", Font.PLAIN, 40));
-																										lblName_6.setBounds(241, 220, 425, 76);
-																										panelPropinasEmpleados.add(lblName_6);
-																										panelPropinasEmpleados.setVisible(false);
-																										lblTotalPropina = new JLabel("");
-																										lblTotalPropina.setFont(new Font("Rage Italic", Font.PLAIN, 50));
-																										lblTotalPropina.setBounds(241, 295, 425, 76);
-																										panelPropinasEmpleados.add(lblTotalPropina);
-																										panelPropinasEmpleados.setVisible(false);
-																										
-																										 lblFondopanel = new JLabel("");
-																										 lblFondopanel.setBounds(0, 0, 834, 546);
-																										 panelPropinasEmpleados.add(lblFondopanel);
-																										 panelPropinasEmpleados.setVisible(false);
 																										
 																										panelnvetarioComida = new JPanel();
 																										panelnvetarioComida.setBounds(0, 0, 834, 553);

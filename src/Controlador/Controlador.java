@@ -449,6 +449,7 @@ public class Controlador implements ActionListener{
 		vista.lblFondopanelPropina.setIcon(fotoEscalar(this.vista.lblFondopanelPropina,"imagenes/fondo.png"));
 		vista.lblFondopanel.setIcon(fotoEscalar(this.vista.lblFondopanel,"imagenes/fondo.png"));
 		vista.lblIconoMoneda.setIcon(fotoEscalar(this.vista.lblIconoMoneda,"imagenes/moneda.png"));
+		vista.lblFotoCamarero.setIcon(fotoEscalar(this.vista.lblFotoCamarero,"imagenes/camarero.png"));
 	}
 	public List rellenar(Personal empleados) {
 		List<Personal>empleados1=new ArrayList<>();
