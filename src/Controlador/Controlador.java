@@ -528,7 +528,7 @@ public class Controlador implements ActionListener{
 		this.vista.comboBoxNombreCamarero.addItem("Fran");
 		this.vista.comboBoxNombreCamarero.addItem("Luis");
 	}
-	private void agregarProductoPorMesa(String producto, double precio, JButton button) {
+	public void agregarProductoPorMesa(String producto, double precio, JButton button) {
 	    String mesaNombre = this.vista.lblnombremesaBebida.getText();
 	    
 	    switch (mesaNombre) {
@@ -569,32 +569,34 @@ public class Controlador implements ActionListener{
 	    }
 	
 	}
-	private void eliminarProductoPorMesa(String producto, double precio,JButton button,JButton añadir) {
+	public void eliminarProductoPorMesa(String producto, double precio, JButton button, JButton añadir) {
 	    String mesaNombre = this.vista.lblnombremesaBebida.getText();
-	  
-	    
+	    Mesa mesa = null;
+
 	    switch (mesaNombre) {
 	        case "Mesa 1":
-	            eliminarProducto(mesa1, producto, precio, button,añadir);  
+	            mesa = mesa1;
 	            break;
 	        case "Mesa 2":
-	            eliminarProducto(mesa2, producto, precio, button,añadir);
+	            mesa = mesa2;
 	            break;
 	        case "Mesa 3":
-	            eliminarProducto(mesa3, producto, precio, button,añadir);
+	            mesa = mesa3;
 	            break;
 	        case "Mesa 4":
-	            eliminarProducto(mesa4, producto, precio, button,añadir);
+	            mesa = mesa4;
 	            break;
 	        case "Mesa 5":
-	            eliminarProducto(mesa5, producto, precio, button,añadir);
+	            mesa = mesa5;
 	            break;
 	        case "Mesa 6":
-	            eliminarProducto(mesa6, producto, precio, button,añadir);
+	            mesa = mesa6;
 	            break;
 	        default:
-	          
 	            break;
+	    }
+	    if (mesa.getComanda().containsKey(producto) && mesa.getComanda().get(producto) > 0) {
+	        eliminarProducto(mesa, producto, precio, button, añadir);
 	    }
 	}
 
@@ -662,7 +664,6 @@ public class Controlador implements ActionListener{
 	        }
 	    } 
 	}
-	
 	public void eliminarProducto(Mesa mesa, String producto, double precio, JButton boton,JButton añadir) {
 	    for (Producto prod : productostotales) {
 	        if (prod.getNombre().equals(producto)) {
