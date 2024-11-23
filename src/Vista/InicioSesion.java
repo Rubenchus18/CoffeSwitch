@@ -22,6 +22,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import java.awt.FlowLayout;
+import javax.swing.JPasswordField;
 
 public class InicioSesion extends JFrame {
 
@@ -31,7 +32,6 @@ public class InicioSesion extends JFrame {
 	public JTextField textFieldInicioSesion;
 	public JLabel lblNewLabel;
 	public JLabel lblTextError;
-	public JTextField textFieldContraseña;
 	public JLabel lblNewLabel_1;
 	public JButton btnIniciarSesion;
 	public JLabel lblName;
@@ -161,6 +161,7 @@ public class InicioSesion extends JFrame {
 	public JLabel lblName_8;
 	public JLabel lblIconoMoneda;
 	public JLabel lblFotoCamarero;
+	public JPasswordField textFieldContraseña;
 	
 	/**
 	 * Launch the application.
@@ -191,6 +192,163 @@ public class InicioSesion extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+																											
+																											panelPropinasEmpleados = new JPanel();
+																											panelPropinasEmpleados.setBounds(0, 0, 834, 546);
+																											contentPane.add(panelPropinasEmpleados);
+																											panelPropinasEmpleados.setLayout(null);
+																											
+																											lblIconoMoneda = new JLabel("");
+																											lblIconoMoneda.setBounds(141, 234, 90, 57);
+																											panelPropinasEmpleados.add(lblIconoMoneda);
+																											btnVolverMesasPropina = new JButton("Mesas");
+																											
+																											btnVolverMesasPropina.setBackground(new Color(0, 255, 128));
+																											btnVolverMesasPropina.setBounds(726, 0, 108, 44);
+																											panelPropinasEmpleados.add(btnVolverMesasPropina);
+																											
+																											comboBoxEmpleados = new JComboBox();
+																											comboBoxEmpleados.setBounds(241, 168, 281, 21);
+																											panelPropinasEmpleados.add(comboBoxEmpleados);
+																											panelPropinasEmpleados.setVisible(false);
+																											lblName_4 = new JLabel("CoffeSwtich");
+																											lblName_4.setFont(new Font("Rage Italic", Font.PLAIN, 60));
+																											lblName_4.setBounds(141, 11, 425, 76);
+																											panelPropinasEmpleados.add(lblName_4);
+																											panelPropinasEmpleados.setVisible(false);
+																											lblName_5 = new JLabel("Nombre del camarero");
+																											lblName_5.setFont(new Font("Rage Italic", Font.PLAIN, 40));
+																											lblName_5.setBounds(241, 82, 425, 76);
+																											panelPropinasEmpleados.add(lblName_5);
+																											panelPropinasEmpleados.setVisible(false);
+																											lblName_6 = new JLabel("Propina Total");
+																											lblName_6.setFont(new Font("Rage Italic", Font.PLAIN, 40));
+																											lblName_6.setBounds(241, 220, 425, 76);
+																											panelPropinasEmpleados.add(lblName_6);
+																											panelPropinasEmpleados.setVisible(false);
+																											lblTotalPropina = new JLabel("");
+																											lblTotalPropina.setFont(new Font("Rage Italic", Font.PLAIN, 50));
+																											lblTotalPropina.setBounds(241, 295, 425, 76);
+																											panelPropinasEmpleados.add(lblTotalPropina);
+																											panelPropinasEmpleados.setVisible(false);
+																											
+																											lblFotoCamarero = new JLabel("");
+																											lblFotoCamarero.setBounds(590, 126, 244, 273);
+																											panelPropinasEmpleados.add(lblFotoCamarero);
+																											
+																											 lblFondopanel = new JLabel("");
+																											 lblFondopanel.setBounds(0, 0, 834, 546);
+																											 panelPropinasEmpleados.add(lblFondopanel);
+																											 panelPropinasEmpleados.setVisible(false);
+																											panelPropinas = new JPanel();
+																											panelPropinas.setBounds(0, 0, 834, 553);
+																											contentPane.add(panelPropinas);
+																											panelPropinas.setLayout(null);
+																											panelPropinas.setVisible(false);
+																											btnVolveraMesasPanelComidad = new JButton("Mesas");
+																											panelPropinas.setVisible(false);
+																											
+																											lblName_8 = new JLabel("CoffeSwtich");
+																											lblName_8.setFont(new Font("Rage Italic", Font.PLAIN, 60));
+																											lblName_8.setBounds(139, 32, 425, 76);
+																											panelPropinas.add(lblName_8);
+																											panelPropinas.setVisible(false);
+																											comboBoxNombreCamarero = new JComboBox();
+																											comboBoxNombreCamarero.setBounds(230, 161, 348, 22);
+																											panelPropinas.add(comboBoxNombreCamarero);
+																											panelPropinas.setVisible(false);
+																											
+																											btnVolveraMesasPanelComidad.setBackground(new Color(0, 255, 128));
+																											btnVolveraMesasPanelComidad.setBounds(726, 0, 108, 44);
+																											panelPropinas.add(btnVolveraMesasPanelComidad);
+																											panelPropinas.setVisible(false);
+																											lblAgradecimiento = new JLabel("Gracias por confiar en nuestro servicio y en nustro personal");
+																											lblAgradecimiento.setHorizontalAlignment(SwingConstants.CENTER);
+																											lblAgradecimiento.setFont(new Font("Rage Italic", Font.PLAIN, 30));
+																											lblAgradecimiento.setBounds(79, 340, 676, 141);
+																											panelPropinas.add(lblAgradecimiento);
+																											panelPropinas.setVisible(false);
+																											panelPropinas.setVisible(false);
+																											lblCantidadPropina_1 = new JLabel("Nombre Camarero");
+																											lblCantidadPropina_1.setHorizontalAlignment(SwingConstants.CENTER);
+																											lblCantidadPropina_1.setFont(new Font("Rage Italic", Font.PLAIN, 30));
+																											lblCantidadPropina_1.setBounds(230, 119, 392, 31);
+																											panelPropinas.add(lblCantidadPropina_1);
+																											panelPropinas.setVisible(false);
+																											btnAñadirPropina = new JButton("Añadir Propina");
+																											btnAñadirPropina.setBackground(new Color(0, 255, 128));
+																											btnAñadirPropina.setBounds(228, 295, 348, 21);
+																											panelPropinas.add(btnAñadirPropina);
+																											panelPropinas.setVisible(false);
+																											textFieldCantidadPropina = new JTextField();
+																											textFieldCantidadPropina.setBounds(230, 250, 348, 19);
+																											panelPropinas.add(textFieldCantidadPropina);
+																											textFieldCantidadPropina.setColumns(10);
+																											panelPropinas.setVisible(false);
+																											lblCantidadPropina = new JLabel("Introduzca cantidad de propina");
+																											lblCantidadPropina.setHorizontalAlignment(SwingConstants.CENTER);
+																											lblCantidadPropina.setFont(new Font("Rage Italic", Font.PLAIN, 30));
+																											lblCantidadPropina.setBounds(220, 208, 392, 31);
+																											panelPropinas.add(lblCantidadPropina);
+																											panelPropinas.setVisible(false);
+																											lblFondopanelPropina = new JLabel("");
+																											lblFondopanelPropina.setBounds(0, 0, 834, 543);
+																											panelPropinas.add(lblFondopanelPropina);
+																											panelPropinas.setVisible(false);
+																											panelnicio = new JPanel();
+																											panelnicio.setBackground(new Color(255, 255, 128));
+																											panelnicio.setBounds(0, -11, 834, 564);
+																											contentPane.add(panelnicio);
+																											panelnicio.setLayout(null);
+																											
+																											textFieldContraseña = new JPasswordField();
+																											textFieldContraseña.setBounds(268, 290, 308, 20);
+																											panelnicio.add(textFieldContraseña);
+																											
+																											btnCrearEmpleado = new JButton("Crear Empleado");
+																											btnCrearEmpleado.setBackground(new Color(128, 255, 128));
+																											btnCrearEmpleado.setBounds(431, 332, 145, 21);
+																											panelnicio.add(btnCrearEmpleado);
+																											
+																											textFieldInicioSesion = new JTextField();
+																											textFieldInicioSesion.setBounds(268, 190, 308, 19);
+																											panelnicio.add(textFieldInicioSesion);
+																											textFieldInicioSesion.setColumns(10);
+																											
+																											lblNewLabel = new JLabel("Inicio Sesion");
+																											lblNewLabel.setFont(new Font("Tahoma", Font.ITALIC, 15));
+																											lblNewLabel.setBounds(268, 167, 308, 13);
+																											panelnicio.add(lblNewLabel);
+																											
+																											lblNewLabel_1 = new JLabel("Contraseña");
+																											lblNewLabel_1.setFont(new Font("Tahoma", Font.ITALIC, 15));
+																											lblNewLabel_1.setBounds(268, 252, 308, 13);
+																											panelnicio.add(lblNewLabel_1);
+																											
+																											btnIniciarSesion = new JButton("Inciar Sesion");
+																											btnIniciarSesion.setBackground(new Color(128, 255, 128));
+																											btnIniciarSesion.setBounds(268, 333, 153, 21);
+																											panelnicio.add(btnIniciarSesion);
+																											
+																											lblName = new JLabel("CoffeSwtich");
+																											lblName.setFont(new Font("Rage Italic", Font.PLAIN, 60));
+																											lblName.setBounds(139, 32, 425, 76);
+																											panelnicio.add(lblName);
+																											
+																											lblHora = new JLabel("");
+																											lblHora.setFont(new Font("Rage Italic", Font.PLAIN, 60));
+																											lblHora.setBounds(431, 32, 290, 76);
+																											panelnicio.add(lblHora);
+																											
+																											lblFalloInicioSesion = new JLabel("");
+																											lblFalloInicioSesion.setHorizontalAlignment(SwingConstants.CENTER);
+																											lblFalloInicioSesion.setFont(new Font("Rage Italic", Font.PLAIN, 25));
+																											lblFalloInicioSesion.setBounds(0, 425, 824, 76);
+																											panelnicio.add(lblFalloInicioSesion);
+																											
+																											lblFondoPanelInicio = new JLabel("");
+																											lblFondoPanelInicio.setBounds(0, 0, 834, 609);
+																											panelnicio.add(lblFondoPanelInicio);
 																											
 																											panelnvetarioComida = new JPanel();
 																											panelnvetarioComida.setBounds(0, 0, 834, 553);
@@ -265,54 +423,6 @@ public class InicioSesion extends JFrame {
 																											  lblName_4_1.setFont(new Font("Rage Italic", Font.PLAIN, 60));
 																											  lblName_4_1.setBounds(106, 15, 425, 76);
 																											  panelnvetarioComida.add(lblName_4_1);
-																											
-																											panelPropinasEmpleados = new JPanel();
-																											panelPropinasEmpleados.setBounds(0, 0, 834, 546);
-																											contentPane.add(panelPropinasEmpleados);
-																											panelPropinasEmpleados.setLayout(null);
-																											
-																											lblIconoMoneda = new JLabel("");
-																											lblIconoMoneda.setBounds(141, 234, 90, 57);
-																											panelPropinasEmpleados.add(lblIconoMoneda);
-																											btnVolverMesasPropina = new JButton("Mesas");
-																											
-																											btnVolverMesasPropina.setBackground(new Color(0, 255, 128));
-																											btnVolverMesasPropina.setBounds(726, 0, 108, 44);
-																											panelPropinasEmpleados.add(btnVolverMesasPropina);
-																											
-																											comboBoxEmpleados = new JComboBox();
-																											comboBoxEmpleados.setBounds(241, 168, 281, 21);
-																											panelPropinasEmpleados.add(comboBoxEmpleados);
-																											panelPropinasEmpleados.setVisible(false);
-																											lblName_4 = new JLabel("CoffeSwtich");
-																											lblName_4.setFont(new Font("Rage Italic", Font.PLAIN, 60));
-																											lblName_4.setBounds(141, 11, 425, 76);
-																											panelPropinasEmpleados.add(lblName_4);
-																											panelPropinasEmpleados.setVisible(false);
-																											lblName_5 = new JLabel("Nombre del camarero");
-																											lblName_5.setFont(new Font("Rage Italic", Font.PLAIN, 40));
-																											lblName_5.setBounds(241, 82, 425, 76);
-																											panelPropinasEmpleados.add(lblName_5);
-																											panelPropinasEmpleados.setVisible(false);
-																											lblName_6 = new JLabel("Propina Total");
-																											lblName_6.setFont(new Font("Rage Italic", Font.PLAIN, 40));
-																											lblName_6.setBounds(241, 220, 425, 76);
-																											panelPropinasEmpleados.add(lblName_6);
-																											panelPropinasEmpleados.setVisible(false);
-																											lblTotalPropina = new JLabel("");
-																											lblTotalPropina.setFont(new Font("Rage Italic", Font.PLAIN, 50));
-																											lblTotalPropina.setBounds(241, 295, 425, 76);
-																											panelPropinasEmpleados.add(lblTotalPropina);
-																											panelPropinasEmpleados.setVisible(false);
-																											 
-																											 lblFotoCamarero = new JLabel("");
-																											 lblFotoCamarero.setBounds(590, 82, 244, 415);
-																											 panelPropinasEmpleados.add(lblFotoCamarero);
-																											
-																											 lblFondopanel = new JLabel("");
-																											 lblFondopanel.setBounds(0, 0, 834, 546);
-																											 panelPropinasEmpleados.add(lblFondopanel);
-																											 panelPropinasEmpleados.setVisible(false);
 																											
 																											
 																											
@@ -679,116 +789,6 @@ public class InicioSesion extends JFrame {
 																											 		lblFondoComida = new JLabel("");
 																											 		lblFondoComida.setBounds(0, 0, 834, 587);
 																											 		panelComida.add(lblFondoComida);
-																										panelPropinas = new JPanel();
-																										panelPropinas.setBounds(0, 0, 834, 553);
-																										contentPane.add(panelPropinas);
-																										panelPropinas.setLayout(null);
-																										panelPropinas.setVisible(false);
-																										btnVolveraMesasPanelComidad = new JButton("Mesas");
-																										panelPropinas.setVisible(false);
-																										
-																										lblName_8 = new JLabel("CoffeSwtich");
-																										lblName_8.setFont(new Font("Rage Italic", Font.PLAIN, 60));
-																										lblName_8.setBounds(139, 32, 425, 76);
-																										panelPropinas.add(lblName_8);
-																										panelPropinas.setVisible(false);
-																										comboBoxNombreCamarero = new JComboBox();
-																										comboBoxNombreCamarero.setBounds(230, 161, 348, 22);
-																										panelPropinas.add(comboBoxNombreCamarero);
-																										panelPropinas.setVisible(false);
-																										
-																										btnVolveraMesasPanelComidad.setBackground(new Color(0, 255, 128));
-																										btnVolveraMesasPanelComidad.setBounds(726, 0, 108, 44);
-																										panelPropinas.add(btnVolveraMesasPanelComidad);
-																										panelPropinas.setVisible(false);
-																										lblAgradecimiento = new JLabel("Gracias por confiar en nuestro servicio y en nustro personal");
-																										lblAgradecimiento.setHorizontalAlignment(SwingConstants.CENTER);
-																										lblAgradecimiento.setFont(new Font("Rage Italic", Font.PLAIN, 30));
-																										lblAgradecimiento.setBounds(79, 340, 676, 141);
-																										panelPropinas.add(lblAgradecimiento);
-																										panelPropinas.setVisible(false);
-																										panelPropinas.setVisible(false);
-																										lblCantidadPropina_1 = new JLabel("Nombre Camarero");
-																										lblCantidadPropina_1.setHorizontalAlignment(SwingConstants.CENTER);
-																										lblCantidadPropina_1.setFont(new Font("Rage Italic", Font.PLAIN, 30));
-																										lblCantidadPropina_1.setBounds(230, 119, 392, 31);
-																										panelPropinas.add(lblCantidadPropina_1);
-																										panelPropinas.setVisible(false);
-																										btnAñadirPropina = new JButton("Añadir Propina");
-																										btnAñadirPropina.setBackground(new Color(0, 255, 128));
-																										btnAñadirPropina.setBounds(228, 295, 348, 21);
-																										panelPropinas.add(btnAñadirPropina);
-																										panelPropinas.setVisible(false);
-																										textFieldCantidadPropina = new JTextField();
-																										textFieldCantidadPropina.setBounds(230, 250, 348, 19);
-																										panelPropinas.add(textFieldCantidadPropina);
-																										textFieldCantidadPropina.setColumns(10);
-																										panelPropinas.setVisible(false);
-																										lblCantidadPropina = new JLabel("Introduzca cantidad de propina");
-																										lblCantidadPropina.setHorizontalAlignment(SwingConstants.CENTER);
-																										lblCantidadPropina.setFont(new Font("Rage Italic", Font.PLAIN, 30));
-																										lblCantidadPropina.setBounds(220, 208, 392, 31);
-																										panelPropinas.add(lblCantidadPropina);
-																										panelPropinas.setVisible(false);
-																										lblFondopanelPropina = new JLabel("");
-																										lblFondopanelPropina.setBounds(0, 0, 834, 543);
-																										panelPropinas.add(lblFondopanelPropina);
-																										panelPropinas.setVisible(false);
-																									panelnicio = new JPanel();
-																									panelnicio.setBackground(new Color(255, 255, 128));
-																									panelnicio.setBounds(0, -11, 834, 564);
-																									contentPane.add(panelnicio);
-																									panelnicio.setLayout(null);
-																									
-																									btnCrearEmpleado = new JButton("Crear Empleado");
-																									btnCrearEmpleado.setBackground(new Color(128, 255, 128));
-																									btnCrearEmpleado.setBounds(431, 332, 145, 21);
-																									panelnicio.add(btnCrearEmpleado);
-																									
-																									textFieldInicioSesion = new JTextField();
-																									textFieldInicioSesion.setBounds(268, 190, 308, 19);
-																									panelnicio.add(textFieldInicioSesion);
-																									textFieldInicioSesion.setColumns(10);
-																									
-																									lblNewLabel = new JLabel("Inicio Sesion");
-																									lblNewLabel.setFont(new Font("Tahoma", Font.ITALIC, 15));
-																									lblNewLabel.setBounds(268, 167, 308, 13);
-																									panelnicio.add(lblNewLabel);
-																									
-																									textFieldContraseña = new JTextField();
-																									textFieldContraseña.setBounds(268, 275, 308, 19);
-																									panelnicio.add(textFieldContraseña);
-																									textFieldContraseña.setColumns(10);
-																									
-																									lblNewLabel_1 = new JLabel("Contraseña");
-																									lblNewLabel_1.setFont(new Font("Tahoma", Font.ITALIC, 15));
-																									lblNewLabel_1.setBounds(268, 252, 308, 13);
-																									panelnicio.add(lblNewLabel_1);
-																									
-																									btnIniciarSesion = new JButton("Inciar Sesion");
-																									btnIniciarSesion.setBackground(new Color(128, 255, 128));
-																									btnIniciarSesion.setBounds(268, 333, 153, 21);
-																									panelnicio.add(btnIniciarSesion);
-																									
-																									lblName = new JLabel("CoffeSwtich");
-																									lblName.setFont(new Font("Rage Italic", Font.PLAIN, 60));
-																									lblName.setBounds(139, 32, 425, 76);
-																									panelnicio.add(lblName);
-																									
-																									lblHora = new JLabel("");
-																									lblHora.setFont(new Font("Rage Italic", Font.PLAIN, 60));
-																									lblHora.setBounds(431, 32, 290, 76);
-																									panelnicio.add(lblHora);
-																									
-																									lblFalloInicioSesion = new JLabel("");
-																									lblFalloInicioSesion.setHorizontalAlignment(SwingConstants.CENTER);
-																									lblFalloInicioSesion.setFont(new Font("Rage Italic", Font.PLAIN, 25));
-																									lblFalloInicioSesion.setBounds(0, 425, 824, 76);
-																									panelnicio.add(lblFalloInicioSesion);
-																									
-																									lblFondoPanelInicio = new JLabel("");
-																									lblFondoPanelInicio.setBounds(0, 0, 834, 609);
-																									panelnicio.add(lblFondoPanelInicio);
 																								
 																								panelMesa = new JPanel();
 																								panelMesa.setBackground(new Color(255, 255, 128));

@@ -266,37 +266,37 @@ public class Controlador implements ActionListener{
 		}
 		//Botones eliminar productos
 		if (e.getSource() == this.vista.btneliminartostada) {
-		    eliminarProductoPorMesa("Tostadas", 1.50,vista.btneliminartostada);
+		    eliminarProductoPorMesa("Tostadas", 1.50,vista.btneliminartostada,vista.btnañadirtostada);
 		} else if (e.getSource() == this.vista.btneliminaravena) {
-		    eliminarProductoPorMesa("Avena", 2.50,vista.btneliminaravena);
+		    eliminarProductoPorMesa("Avena", 2.50,vista.btneliminaravena, vista.btnañadirvolavena);
 		} else if (e.getSource() == this.vista.btneliminarcooki) {
-		    eliminarProductoPorMesa("Cookie", 0.50,vista.btneliminarcooki);
+		    eliminarProductoPorMesa("Cookie", 0.50,vista.btneliminarcooki,vista.btnañadircooki);
 		} else if (e.getSource() == this.vista.btneliminartortitas) {
-		    eliminarProductoPorMesa("Tortitas", 2.00,vista.btneliminartortitas);
+		    eliminarProductoPorMesa("Tortitas", 2.00,vista.btneliminartortitas, vista.btnañadirtortitas);
 		} else if (e.getSource() == this.vista.btneliminartostadadejamon) {
-		    eliminarProductoPorMesa("Tostadas de Jamon", 2.00,vista.btneliminartostadadejamon);
+		    eliminarProductoPorMesa("Tostadas de Jamon", 2.00,vista.btneliminartostadadejamon,vista.btnañadirtostadadejamon);
 		} else if (e.getSource() == this.vista.btneliminarcroassan) {
-		    eliminarProductoPorMesa("Croassan", 1.20,vista.btneliminarcroassan);
+		    eliminarProductoPorMesa("Croassan", 1.20,vista.btneliminarcroassan, vista.btnañadircroassan);
 		} else if (e.getSource() == this.vista.btneliminarpalmera) {
-		    eliminarProductoPorMesa("Palmera", 1.00,vista.btneliminarpalmera);
+		    eliminarProductoPorMesa("Palmera", 1.00,vista.btneliminarpalmera,vista.btnañadirpalmera);
 		} else if (e.getSource() == this.vista.btneliminarchurros) {
-		    eliminarProductoPorMesa("Churros", 0.50,vista.btneliminarchurros);
+		    eliminarProductoPorMesa("Churros", 0.50,vista.btneliminarchurros,  vista.btnañadirchurros);
 		} else if (e.getSource() == this.vista.btneliminarcafesolo) {
-		    eliminarProductoPorMesa("Cafe", 1.20,vista.btneliminarcafesolo);
+		    eliminarProductoPorMesa("Cafe", 1.20,vista.btneliminarcafesolo,vista.btnañadircafesolo);
 		} else if (e.getSource() == this.vista.btneliminarcortado) {
-		    eliminarProductoPorMesa("Cortado", 1.50, vista.btneliminarcortado);
+		    eliminarProductoPorMesa("Cortado", 1.50, vista.btneliminarcortado,vista.btnañadircortado);
 		} else if (e.getSource() == this.vista.btneliminarcaramel) {
-		    eliminarProductoPorMesa("Caramel", 2.50,vista.btneliminarcaramel);
+		    eliminarProductoPorMesa("Caramel", 2.50,vista.btneliminarcaramel,vista.btnañadircaramel);
 		} else if (e.getSource() == this.vista.btneliminarfrapuchino) {
-		    eliminarProductoPorMesa("Frapuchino", 2.00,vista.btneliminarfrapuchino);
+		    eliminarProductoPorMesa("Frapuchino", 2.00,vista.btneliminarfrapuchino,vista.btnañadirfrapuchino);
 		} else if (e.getSource() == this.vista.btneliminarcolacao) {
-		    eliminarProductoPorMesa("Cola Cao", 1.50,vista.btneliminarcolacao);
+		    eliminarProductoPorMesa("Cola Cao", 1.50,vista.btneliminarcolacao,vista.btnañadircolacao);
 		} else if (e.getSource() == this.vista.btneliminarcafeconleche) {
-		    eliminarProductoPorMesa("Cafe con leche", 1.20,vista.btneliminarcafeconleche);
+		    eliminarProductoPorMesa("Cafe con leche", 1.20,vista.btneliminarcafeconleche,vista.btnaladircafeconleche);
 		} else if (e.getSource() == this.vista.btneliminarcafelargo) {
-		    eliminarProductoPorMesa("Cafe Largo", 1.50,vista.btneliminarcafelargo);
+		    eliminarProductoPorMesa("Cafe Largo", 1.50,vista.btneliminarcafelargo,vista.btnañadircafelargo);
 		} else if (e.getSource() == this.vista.btneliminarrzumo) {
-		    eliminarProductoPorMesa("Zumo", 1,vista.btneliminarrzumo);
+		    eliminarProductoPorMesa("Zumo", 1,vista.btneliminarrzumo, vista.btnañadirzumo);
 		}
 		//Botono volver atras del panel mesa
 		if(e.getSource()==this.vista.btnAtras){
@@ -466,7 +466,7 @@ public class Controlador implements ActionListener{
 		 this.vista.comboBoxNombreCamarero.addItem(nombre);
 	}
 	public List rellenarproducto(Producto inventario,List<Producto>productos) {
-		productos.add(new Producto("Tostadas",1,1.50));
+		productos.add(new Producto("Tostadas",10,1.50));
 		productos.add(new Producto("Avena",50,2.50));
 		productos.add(new Producto("Cookie",200,0.50));
 		productos.add(new Producto("Tortitas",150,2.00));
@@ -530,35 +530,34 @@ public class Controlador implements ActionListener{
 	}
 	private void agregarProductoPorMesa(String producto, double precio, JButton button) {
 	    String mesaNombre = this.vista.lblnombremesaBebida.getText();
-	    int mesaNumero = Integer.parseInt(mesaNombre.split(" ")[1]);
 	    
-	    switch (mesaNumero) {
-	        case 1:
+	    switch (mesaNombre) {
+	        case "Mesa 1":
 	            agregarProducto(mesa1, producto, precio, button);
 	            this.vista.lblestadomesa1.setText("Ocupado"); 
 	            this.vista.lblestadomesa1.setForeground(Color.red); 
 	            break;
-	        case 2:
+	        case "Mesa 2":
 	            agregarProducto(mesa2, producto, precio, button);
 	            this.vista.lblestadomesa2.setText("Ocupado");
 	            this.vista.lblestadomesa2.setForeground(Color.red); 
 	            break;
-	        case 3:
+	        case "Mesa 3":
 	            agregarProducto(mesa3, producto, precio, button);
 	            this.vista.lblestadomesa3.setText("Ocupado");
 	            this.vista.lblestadomesa3.setForeground(Color.red); 
 	            break;
-	        case 4:
+	        case "Mesa 4":
 	            agregarProducto(mesa4, producto, precio, button);
 	            this.vista.lblestadomesa4.setText("Ocupado");
 	            this.vista.lblestadomesa4.setForeground(Color.red); 
 	            break;
-	        case 5:
+	        case "Mesa 5":
 	            agregarProducto(mesa5, producto, precio, button);
 	            this.vista.lblestadomesa5.setText("Ocupado");
 	            this.vista.lblestadomesa5.setForeground(Color.red); 
 	            break;
-	        case 6:
+	        case "Mesa 6":
 	            agregarProducto(mesa6, producto, precio, button);
 	            this.vista.lblestadomesa6.setText("Ocupado");
 	            this.vista.lblestadomesa6.setForeground(Color.red); 
@@ -568,29 +567,30 @@ public class Controlador implements ActionListener{
 	           
 	            break;
 	    }
+	
 	}
-	private void eliminarProductoPorMesa(String producto, double precio,JButton button) {
+	private void eliminarProductoPorMesa(String producto, double precio,JButton button,JButton añadir) {
 	    String mesaNombre = this.vista.lblnombremesaBebida.getText();
-	    int mesaNumero = Integer.parseInt(mesaNombre.split(" ")[1]); 
+	  
 	    
-	    switch (mesaNumero) {
-	        case 1:
-	            eliminarProducto(mesa1, producto, precio, button);  
+	    switch (mesaNombre) {
+	        case "Mesa 1":
+	            eliminarProducto(mesa1, producto, precio, button,añadir);  
 	            break;
-	        case 2:
-	            eliminarProducto(mesa2, producto, precio, button);
+	        case "Mesa 2":
+	            eliminarProducto(mesa2, producto, precio, button,añadir);
 	            break;
-	        case 3:
-	            eliminarProducto(mesa3, producto, precio, button);
+	        case "Mesa 3":
+	            eliminarProducto(mesa3, producto, precio, button,añadir);
 	            break;
-	        case 4:
-	            eliminarProducto(mesa4, producto, precio, button);
+	        case "Mesa 4":
+	            eliminarProducto(mesa4, producto, precio, button,añadir);
 	            break;
-	        case 5:
-	            eliminarProducto(mesa5, producto, precio, button);
+	        case "Mesa 5":
+	            eliminarProducto(mesa5, producto, precio, button,añadir);
 	            break;
-	        case 6:
-	            eliminarProducto(mesa6, producto, precio, button);
+	        case "Mesa 6":
+	            eliminarProducto(mesa6, producto, precio, button,añadir);
 	            break;
 	        default:
 	          
@@ -607,7 +607,7 @@ public class Controlador implements ActionListener{
 	            this.vista.lblnohaycomida.setText("");
 	        	this.vista.lblnohaybebida.setText("");
 	        	this.vista.lblCantidadActual_1.setText(String.valueOf(prod.getCantidad()));
-	        	if(prod.getNombre().equals(producto) && prod.getCantidad() == 0) {
+	        	if(prod.getNombre().equals(producto) && prod.getCantidad() <= 0) {
 		        	boton.setEnabled(false);	        	
 		        }
 	        }
@@ -629,66 +629,120 @@ public class Controlador implements ActionListener{
 	        }
 	        vista.list_2.setModel(modelo);
 	        vista.list_1.setModel(modelo);
+	        if (modelo.isEmpty()) {
+	            String mesaNombre = vista.lblnombremesaBebida.getText();
+	            switch (mesaNombre) {
+	                case "Mesa 1":
+	                    vista.lblestadomesa1.setText("Libre");
+	                    vista.lblestadomesa1.setForeground(new Color(0, 64, 0));
+	                    break;
+	                case "Mesa 2":
+	                    vista.lblestadomesa2.setText("Libre");
+	                    vista.lblestadomesa2.setForeground(new Color(0, 64, 0));
+	                    break;
+	                case "Mesa 3":
+	                    vista.lblestadomesa3.setText("Libre");
+	                    vista.lblestadomesa3.setForeground(new Color(0, 64, 0));
+	                    break;
+	                case "Mesa 4":
+	                    vista.lblestadomesa4.setText("Libre");
+	                    vista.lblestadomesa4.setForeground(new Color(0, 64, 0));
+	                    break;
+	                case "Mesa 5":
+	                    vista.lblestadomesa5.setText("Libre");
+	                    vista.lblestadomesa5.setForeground(new Color(0, 64, 0));
+	                    break;
+	                case "Mesa 6":
+	                    vista.lblestadomesa6.setText("Libre");
+	                    vista.lblestadomesa6.setForeground(new Color(0, 64, 0));
+	                    break;
+	                default:
+	                    break;
+	            }
+	        }
 	    } 
 	}
 	
-	public void eliminarProducto(Mesa mesa, String producto, double precio,JButton boton) {
-		 for (Producto prod : productostotales) {
-		        if (prod.getNombre().equals(producto) && prod.getCantidad() > 0) { 
-		        	boton.setEnabled(true);
-		            mesa.eliminarProducto(prod.getNombre(), 1); 
-		            prod.setCantidad(prod.getCantidad() + 1); 
-		            this.vista.lblnohaycomida.setText("");
-		        	this.vista.lblnohaybebida.setText("");
-		        	this.vista.lblCantidadActual_1.setText(String.valueOf(prod.getCantidad()));
-		        	if(prod.getNombre().equals(producto) && prod.getCantidad() == 0) {
-			        	boton.setEnabled(false);	        	
-			        }
-		        }
-		    }
-
-		    actualizarModeloDeLista(mesa);
-		}
-	public  Double pagarPorMesa(DefaultListModel<String> modelo, JList<String> list) {
+	public void eliminarProducto(Mesa mesa, String producto, double precio, JButton boton,JButton añadir) {
+	    for (Producto prod : productostotales) {
+	        if (prod.getNombre().equals(producto)) {
+	            mesa.eliminarProducto(prod.getNombre(), 1); 
+	            prod.setCantidad(prod.getCantidad() + 1); 
+	            this.vista.lblnohaycomida.setText("");
+	            this.vista.lblnohaybebida.setText("");
+	            this.vista.lblCantidadActual_1.setText(String.valueOf(prod.getCantidad()));	
+	            if (prod.getCantidad() >= 0) {
+	                boton.setEnabled(true);
+	                añadir.setEnabled(true);;
+	            } else {
+	                boton.setEnabled(false);
+	            }
+	        }
+	    }
+	    actualizarModeloDeLista(mesa);
+	}
+	public Double pagarPorMesa(DefaultListModel<String> modelo, JList<String> list) {
 	    String mesaNombre = this.vista.lblnombremesaBebida.getText();
 	    Mesa mesa = null;
 
 	    switch (mesaNombre) {
 	        case "Mesa 1":
 	            mesa = mesa1;
-	            this.vista.lblestadomesa1.setText("Libre");
-	            this.vista.lblestadomesa1.setForeground(new Color(0, 64, 0));
 	            break;
 	        case "Mesa 2":
 	            mesa = mesa2;
-	            this.vista.lblestadomesa2.setText("Libre");
-	            this.vista.lblestadomesa2.setForeground(new Color(0, 64, 0));
 	            break;
 	        case "Mesa 3":
 	            mesa = mesa3;
-	            this.vista.lblestadomesa3.setText("Libre");
-	            this.vista.lblestadomesa3.setForeground(new Color(0, 64, 0));
 	            break;
 	        case "Mesa 4":
 	            mesa = mesa4;
-	            this.vista.lblestadomesa4.setText("Libre");
-	            this.vista.lblestadomesa4.setForeground(new Color(0, 64, 0));
 	            break;
 	        case "Mesa 5":
 	            mesa = mesa5;
-	            this.vista.lblestadomesa5.setText("Libre");
-	            this.vista.lblestadomesa5.setForeground(new Color(0, 64, 0));
 	            break;
 	        case "Mesa 6":
 	            mesa = mesa6;
-	            this.vista.lblestadomesa6.setText("Libre");
-	            this.vista.lblestadomesa6.setForeground(new Color(0, 64, 0));
 	            break;
 	        default:
-	        break;
+	            break;
 	    }
 
-	    return pagar(mesa, modelo, list);
+	    Double total = pagar(mesa, modelo, list);
+	    if (total > 0) {
+	        actualizarModeloDeLista(mesa);
+	    } else {
+	        switch (mesaNombre) {
+	            case "Mesa 1":
+	                vista.lblestadomesa1.setText("Libre");
+	                vista.lblestadomesa1.setForeground(new Color(0, 64, 0));
+	                break;
+	            case "Mesa 2":
+	                vista.lblestadomesa2.setText("Libre");
+	                vista.lblestadomesa2.setForeground(new Color(0, 64, 0));
+	                break;
+	            case "Mesa 3":
+	                vista.lblestadomesa3.setText("Libre");
+	                vista.lblestadomesa3.setForeground(new Color(0, 64, 0));
+	                break;
+	            case "Mesa 4":
+	                vista.lblestadomesa4.setText("Libre");
+	                vista.lblestadomesa4.setForeground(new Color(0, 64, 0));
+	                break;
+	            case "Mesa 5":
+	                vista .lblestadomesa5.setText("Libre");
+	                vista.lblestadomesa5.setForeground(new Color(0, 64, 0));
+	                break;
+	            case "Mesa 6":
+	                vista.lblestadomesa6.setText("Libre");
+	                vista.lblestadomesa6.setForeground(new Color(0, 64, 0));
+	                break;
+	            default:
+	                break;
+	        }
+	    }
+	    
+	    return total; 
 	}
 	public Double pagar(Mesa mesa, DefaultListModel<String> modelo, JList<String> list) {
 	    double total = 0.0;
@@ -862,4 +916,4 @@ public class Controlador implements ActionListener{
                 this.vista.panelMesa.setVisible(true);
 	        }
 	}
-}
+}//fin
